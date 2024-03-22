@@ -1,17 +1,3 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
 * {
   margin: 0;
   padding: 0;
@@ -22,7 +8,7 @@ body {
   display: flex;
   justify-content: center;
   color: #a6282e;
-  font-family: "Raleway";
+  font-family: "Roboto";
   text-align: center;
   /* gap: 50px; */
 }
@@ -35,6 +21,11 @@ h1 {
 h2 {
   font-size: 28px;
   font-weight: 700;
+  margin: 10px 0;
+  color: #303030;
+}
+
+h3 {
   margin: 10px 0;
   color: #303030;
 }
@@ -59,4 +50,31 @@ form {
   /* display: inline-block; */
   width: fit-content;
   cursor: pointer;
+}
+
+.rmdp-arrow {
+  border: solid #a6282e !important;
+  border-width: 0 2px 2px 0 !important;
+}
+
+.rmdp-arrow-container:hover {
+  background-color: #a0a0a0 !important;
+}
+
+.rmdp-week-day {
+  color: #a6282e !important;
+}
+
+.rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
+  background-color: #a6282e !important;
+  color: #fff;
+}
+
+.rmdp-day.rmdp-today span {
+  background-color: #a0a0a0 !important;
+  color: #fff;
+}
+
+.rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: #a6282e !important;
 }

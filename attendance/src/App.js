@@ -1,71 +1,97 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Copyright from "./components/Copyright";
-import { useState } from "react";
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import DatePicker, { Calendar } from "react-multi-date-picker";
+import { Controller, useForm } from "react-hook-form";
+import { Calendar } from "react-multi-date-picker";
+import { Dropdown } from "primereact/dropdown";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
-const choirData = [
-  { id: 1, firstName: "Sharee", lastName: "Thompson" },
-  { id: 2, firstName: "Matthew", lastName: "Thompson" },
-  { id: 3, firstName: "Tepring", lastName: "Crocker" },
-];
+const choirRoster = ["Sharee Thompson", "Matthew Thompson"];
 
 function App() {
-  const [selectedDate, setSelectedDate] = useState(dayjs(new Date()));
-  const today = new Date();
-  const tomorrow = new Date();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [selectedDate, setSelectedDate] = useState([]);
+  const [selectedName, setSelectedName] = useState("");
 
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
-  const [values, setValues] = useState([]);
+  const handleNameChange = (e) => {
+    setSelectedName(e.target.value);
+  };
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    alert("hit");
-  }
-
-  function Dropdown() {
-    const dropdownOptions = choirData.map((option) => (
-      <option
-        key={`${option.id}`}
-        value={`${option.firstName}-${option.lastName}`}
-      >
-        {`${option.firstName} ${option.lastName}`}
-      </option>
-    ));
-
-    return dropdownOptions;
+  function formatSavedDates(allDates) {
+    const formattedDates = [];
+    allDates.map((date) => {
+      formattedDates.push(date.year + "-" + date.month.number + "-" + date.day);
+    });
+    setSelectedDate(formattedDates);
+    console.log(formattedDates);
   }
 
   return (
     <>
       <h1>Choir Attendance</h1>
 
-      <form onSubmit={handleSubmit}>
-        <h2>Select your name</h2>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Autocomplete
+          onChange={(event, newValue) => {
+            setSelectedName(newValue);
+          }}
+          value={selectedName}
+          disablePortal
+          id="combo-box-demo"
+          options={choirRoster}
+          sx={{ width: 300 }}
+          renderInput={(params) => (
+            <TextField {...params} label="Select Your Name" />
+          )}
+        />
+        {/* <select value={selectedName} onChange={handleNameChange}>
+          <option value="" disabled>
+            Select Name
+          </option>
+          {choirData.map((option) => (
+            <option
+              key={option.id}
+              value={`${option.firstName} ${option.lastName}`}
+            >
+              {`${option.firstName} ${option.lastName}`}
+            </option>
+          ))}
+        </select> */}
 
-        <select>
-          <option value="" disabled selected></option>
-          <Dropdown />
-        </select>
+        <h3>Indicate which day(s) you will be absent</h3>
+        <Controller
+          control={control}
+          name="date"
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Calendar
+              multiple
+              value={selectedDate}
+              onChange={(date) => {
+                formatSavedDates(date);
+                field.onChange(date);
+              }}
+              format="YYYY-MM-DD"
+            />
+          )}
+        />
+        {errors.date && (
+          <span>Please select the day(s) you will be absent from choir.</span>
+        )}
 
-        <h2>Indicate which day(s) you will be absent</h2>
-        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            label="Select Date"
-            value={selectedDate}
-            onChange={setSelectedDate}
-          />
-        </LocalizationProvider> */}
-        <Calendar multiple value={values} onChange={setValues} />
-        {/* <span>Add additional days ➕</span> */}
-        {/* <p>{selectedDate.format("MM/DD/YY")}</p> */}
-
-        <button className="button">Submit</button>
+        <button type="submit" className="button">
+          Submit
+        </button>
       </form>
+
       <footer>
         <Copyright />
       </footer>
