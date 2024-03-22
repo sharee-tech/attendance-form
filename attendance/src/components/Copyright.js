@@ -3,16 +3,16 @@ import Link from "@mui/material/Link";
 
 export default function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
+    <Typography variant="body2" color="text.secondary">
       {"Copyright © "}
       <Link
         color="inherit"
         href="https:cccckc.org"
-        style={{ textDecoration: "none", marginRight: ".25 rem" }}
+        style={{ textDecoration: "none", marginRight: ".25rem" }}
       >
         Country Club Christian Church |
       </Link>
-      {new Date().getFullYear()}.
+      {new Date().getFullYear()}
     </Typography>
   );
 }
