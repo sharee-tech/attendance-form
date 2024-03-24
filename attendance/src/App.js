@@ -1,24 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Copyright from "./components/Copyright";
 import { Controller, useForm } from "react-hook-form";
 import { Calendar } from "react-multi-date-picker";
-import { Dropdown } from "primereact/dropdown";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { createClient } from "@supabase/supabase-js";
+import Header from "./components/Header";
 
-const choirRoster = ["Sharee Thompson", "Matthew Thompson"];
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 function App() {
+  const [selectedDate, setSelectedDate] = useState([]);
+  const [selectedName, setSelectedName] = useState("");
+  const [members, setMembers] = useState([]);
+
+  useEffect(() => {
+    getMembers();
+  }, []);
+
+  async function getMembers() {
+    const { data } = await supabase.from("members").select();
+    setMembers(data);
+  }
+
+  async function setAbsences() {
+    const insertData = selectedDate.map((date) => ({
+      name: selectedName,
+      date: date,
+    }));
+    const { data, error } = await supabase.from("absences").insert(insertData);
+    if (error) {
+      console.error("Error inserting absences:", error.message);
+    } else {
+      console.log("Absences inserted successfully:", data);
+    }
+  }
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [selectedDate, setSelectedDate] = useState([]);
-  const [selectedName, setSelectedName] = useState("");
 
   const onSubmit = (data) => {
     console.log(data);
+    setAbsences();
+    setSelectedDate([]);
+    setSelectedName("");
+    return alert("Dates submitted successfully!");
   };
 
   const handleNameChange = (e) => {
@@ -36,8 +67,8 @@ function App() {
 
   return (
     <>
+      <Header />
       <h1>Choir Attendance</h1>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <Autocomplete
           onChange={(event, newValue) => {
@@ -46,26 +77,13 @@ function App() {
           value={selectedName}
           disablePortal
           id="combo-box-demo"
-          options={choirRoster}
+          // options={choirRoster}
+          options={members.map((member) => member.name)}
           sx={{ width: 300 }}
           renderInput={(params) => (
             <TextField {...params} label="Select Your Name" />
           )}
         />
-        {/* <select value={selectedName} onChange={handleNameChange}>
-          <option value="" disabled>
-            Select Name
-          </option>
-          {choirData.map((option) => (
-            <option
-              key={option.id}
-              value={`${option.firstName} ${option.lastName}`}
-            >
-              {`${option.firstName} ${option.lastName}`}
-            </option>
-          ))}
-        </select> */}
-
         <h3>Indicate which day(s) you will be absent</h3>
         <Controller
           control={control}
@@ -80,6 +98,20 @@ function App() {
                 field.onChange(date);
               }}
               format="YYYY-MM-DD"
+              monthYearSeparator="|"
+              mapDays={({ date }) => {
+                let notselectable = [1, 2, 4, 5, 6].includes(
+                  date.weekDay.index
+                );
+
+                if (notselectable)
+                  return {
+                    disabled: true,
+                    style: { color: "#ccc" },
+                    onClick: () =>
+                      alert("You must select a Sunday or a Wednesday"),
+                  };
+              }}
             />
           )}
         />
