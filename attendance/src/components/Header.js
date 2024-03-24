@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export default function Header() {
   return (
     <header
@@ -10,12 +12,19 @@ export default function Header() {
       {/* <span style={{ cursor: "pointer", color: "#303030", fontSize: "12px" }}>
         ADMIN LOGIN
       </span> */}
-      <a
+
+      <NavLink
+        to="/login"
+        style={{ textDecoration: "none", color: "#303030", fontSize: "12px" }}
+      >
+        ADMIN LOGIN
+      </NavLink>
+      {/* <a
         href="#"
         style={{ textDecoration: "none", color: "#303030", fontSize: "12px" }}
       >
         ADMIN LOGIN
-      </a>
+      </a> */}
     </header>
   );
 }
