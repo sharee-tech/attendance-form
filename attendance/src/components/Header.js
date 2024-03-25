@@ -1,30 +1,62 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 export default function Header() {
+  const path = useLocation();
+  console.log(path.pathname);
   return (
-    <header
-      style={{
-        display: "flex",
-        justifyContent: "flex-end",
-        padding: "20px",
-      }}
-    >
-      {/* <span style={{ cursor: "pointer", color: "#303030", fontSize: "12px" }}>
-        ADMIN LOGIN
-      </span> */}
-
-      <NavLink
-        to="/login"
-        style={{ textDecoration: "none", color: "#303030", fontSize: "12px" }}
-      >
-        ADMIN LOGIN
-      </NavLink>
-      {/* <a
-        href="#"
-        style={{ textDecoration: "none", color: "#303030", fontSize: "12px" }}
-      >
-        ADMIN LOGIN
-      </a> */}
+    <header>
+      {(() => {
+        switch (path.pathname) {
+          case "/admin":
+            return (
+              <NavLink to="/" className="link">
+                HOME
+              </NavLink>
+            );
+          case "/":
+            return (
+              <NavLink to="/admin" className="link">
+                ADMIN
+              </NavLink>
+            );
+          case "/members":
+            return (
+              <NavLink to="/admin" className="link">
+                ADMIN
+              </NavLink>
+            );
+          case "/absences":
+            return (
+              <>
+                <NavLink to="/admin" className="link">
+                  ADMIN
+                </NavLink>
+                <p className="link">EDIT</p>
+              </>
+            );
+          case "/login":
+            return (
+              <NavLink to="/" className="nav">
+                HOME
+              </NavLink>
+            );
+          default:
+            return (
+              <NavLink to="/" className="nav">
+                HOME
+              </NavLink>
+            );
+        }
+      })()}
+      {/* {path.pathname !== "/" ? (
+        <NavLink to="/" className="nav">
+          HOME
+        </NavLink>
+      ) : (
+        <NavLink to="/admin" className="nav">
+          ADMIN
+        </NavLink>
+      )} */}
     </header>
   );
 }

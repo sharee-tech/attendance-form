@@ -1,10 +1,10 @@
 import Header from "./Header";
 
-export default function Login() {
+export default function Members() {
   return (
     <>
       <Header />
-      <h1>Login</h1>
+      <h1>Members</h1>
     </>
   );
 }

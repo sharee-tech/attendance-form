@@ -13,6 +13,18 @@ body {
   /* gap: 50px; */
 }
 
+/* style={{
+  display: "flex",
+  justifyContent: "flex-end",
+  padding: "20px",
+}} */
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
 h1 {
   margin: 10px 0;
   color: #a6282e;
@@ -36,6 +48,33 @@ form {
   gap: 25px;
   margin: 25px 0;
   align-items: center;
+}
+
+ul li {
+  padding: 0.4rem;
+  text-align: left;
+}
+
+.link {
+  text-decoration: none;
+  color: #303030;
+  font-size: 12px;
+  margin-left: 20px;
+}
+
+/* div:has(> p.link) {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+} */
+
+p.link {
+  cursor: pointer;
+}
+
+.absences {
+  padding: 0.4rem;
+  text-align: left;
 }
 
 .button {

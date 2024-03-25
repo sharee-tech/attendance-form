@@ -45,6 +45,9 @@ function Home() {
   } = useForm();
 
   const onSubmit = (data) => {
+    if (!selectedName) {
+      return alert("Please select your name.");
+    }
     console.log(data);
     setAbsences();
     setSelectedDate([]);
