@@ -6,15 +6,58 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { createClient } from "@supabase/supabase-js";
 import Header from "./Header";
+import Success from "./Success";
+import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import Collapse from "@mui/material/Collapse";
+import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+function SuccessAlert({ open, setOpen }) {
+  return (
+    <Box sx={{ width: "100%" }}>
+      <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          Dates submitted successfully!
+        </Alert>
+      </Collapse>
+      {/* <Button
+        disabled={open}
+        variant="outlined"
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Re-open
+      </Button> */}
+    </Box>
+  );
+}
+
 function Home() {
   const [selectedDate, setSelectedDate] = useState([]);
   const [selectedName, setSelectedName] = useState("");
   const [members, setMembers] = useState([]);
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     getMembers();
@@ -45,14 +88,12 @@ function Home() {
   } = useForm();
 
   const onSubmit = (data) => {
-    if (!selectedName) {
-      return alert("Please select your name.");
-    }
     console.log(data);
     setAbsences();
     setSelectedDate([]);
     setSelectedName("");
-    return alert("Dates submitted successfully!");
+    setOpen(true);
+    // return alert("Dates submitted successfully!");
   };
 
   const handleNameChange = (e) => {
@@ -70,21 +111,36 @@ function Home() {
 
   return (
     <>
+      <SuccessAlert open={open} setOpen={setOpen} />
       <Header />
       <h1>Choir Attendance</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Autocomplete
-          onChange={(event, newValue) => {
-            setSelectedName(newValue);
-          }}
-          value={selectedName}
-          disablePortal
-          id="combo-box-demo"
-          // options={choirRoster}
-          options={members.map((member) => member.name)}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField {...params} label="Select Your Name" />
+        <Controller
+          control={control}
+          name="selectedName"
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Autocomplete
+              onChange={(event, newValue) => {
+                field.onChange(newValue);
+                setSelectedName(newValue);
+              }}
+              value={field.value}
+              disablePortal
+              id="combo-box-demo"
+              options={members.map((member) => member.name)}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Select Your Name"
+                  error={!!errors.selectedName}
+                  helperText={
+                    errors.selectedName ? "Please select your name." : ""
+                  }
+                />
+              )}
+            />
           )}
         />
         <h3>Indicate which day(s) you will be absent</h3>
@@ -121,7 +177,6 @@ function Home() {
         {errors.date && (
           <span>Please select the day(s) you will be absent from choir.</span>
         )}
-
         <button type="submit" className="button">
           Submit
         </button>
