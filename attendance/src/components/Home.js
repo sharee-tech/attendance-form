@@ -93,11 +93,6 @@ function Home() {
     setSelectedDate([]);
     setSelectedName("");
     setOpen(true);
-    // return alert("Dates submitted successfully!");
-  };
-
-  const handleNameChange = (e) => {
-    setSelectedName(e.target.value);
   };
 
   function formatSavedDates(allDates) {
@@ -128,7 +123,9 @@ function Home() {
               value={selectedName}
               disablePortal
               id="combo-box-demo"
-              options={members.map((member) => member.name)}
+              options={members.map(
+                (member) => `${member.first_name} ${member.last_name}`
+              )}
               sx={{ width: 300 }}
               renderInput={(params) => (
                 <TextField

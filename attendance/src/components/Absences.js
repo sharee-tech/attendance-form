@@ -25,7 +25,6 @@ export default function Absences() {
       .from("absences")
       .delete()
       .neq("id", 0);
-
     if (error) {
       console.error("Error deleting absence:", error.message);
     } else {
@@ -38,7 +37,6 @@ export default function Absences() {
       .from("absences")
       .delete()
       .eq("id", id);
-
     if (error) {
       console.error("Error deleting absence:", error.message);
     } else {
