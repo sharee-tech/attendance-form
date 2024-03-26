@@ -49,6 +49,17 @@ ul li {
   text-align: left;
 }
 
+.absences-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.absences-list > * {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .link {
   text-decoration: none;
   color: #303030;
@@ -71,7 +82,7 @@ p.link {
   text-align: left;
 }
 
-.button {
+button {
   background-color: #a6282e;
   border: none;
   padding: 0.8rem 2.4rem;

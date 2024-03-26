@@ -9,9 +9,14 @@ export default function Header() {
         switch (path.pathname) {
           case "/admin":
             return (
-              <NavLink to="/" className="link">
-                HOME
-              </NavLink>
+              <>
+                <NavLink to="/" className="link">
+                  HOME
+                </NavLink>
+                <NavLink to="/members" className="link">
+                  MEMBERS
+                </NavLink>
+              </>
             );
           case "/":
             // return <img src="../favicon.png" alt="icon" width="24px" />;
@@ -19,7 +24,7 @@ export default function Header() {
           case "/members":
             return (
               <NavLink to="/admin" className="link">
-                ADMIN
+                ADMIN (show absences)
               </NavLink>
             );
           case "/absences":

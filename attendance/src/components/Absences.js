@@ -21,7 +21,6 @@ export default function Absences() {
   }
 
   async function deleteAllAbsences() {
-    // if(window.confirm('Delete the item?')){this.removeToCollection(key, e)};}}
     const { error } = await supabase
       .from("absences")
       .delete()
@@ -59,32 +58,21 @@ export default function Absences() {
     setAbsences(data);
     console.log(absences);
   }
-
-  const list = [
-    {
-      id: 2,
-      name: "Sharee Thompson",
-      date: "2024-3-31",
-    },
-    {
-      id: 3,
-      name: "Tepring Crocker",
-      date: "2024-3-31",
-    },
-    {
-      id: 1,
-      name: "Matthew Thompson",
-      date: "2024-04-03",
-    },
-  ];
   const groupedItems = groupItemsByYearAndMonth(absences);
 
   const renderItems = (items) => {
     return (
-      <ul style={{ listStyleType: "none" }}>
+      <ul className="absences-list" style={{ listStyleType: "none" }}>
         {items.map((item) => (
           <li key={item.name}>
-            <RemoveCircleOutlineIcon onClick={() => deleteAbsence(item.id)} />
+            <RemoveCircleOutlineIcon
+              onClick={() => {
+                if (window.confirm("Are you sure?")) {
+                  deleteAbsence(item.id);
+                }
+              }}
+              style={{ cursor: "pointer" }}
+            />
             {Number(moment(item.date).format("DD"))} - {item.name}
           </li>
         ))}
@@ -94,18 +82,7 @@ export default function Absences() {
 
   return (
     <>
-      <Header />
       <h1>Absences</h1>
-
-      <button
-        onClick={() => {
-          if (window.confirm("Are you sure?")) {
-            deleteAllAbsences();
-          }
-        }}
-      >
-        DELETE ALL
-      </button>
       <div className="absences">
         {Object.entries(groupedItems).map(([yearMonth, items]) => (
           <>
@@ -114,6 +91,15 @@ export default function Absences() {
           </>
         ))}
       </div>
+      <button
+        onClick={() => {
+          if (window.confirm("Are you sure?")) {
+            deleteAllAbsences();
+          }
+        }}
+      >
+        Clear All Absences (end of year)
+      </button>
     </>
   );
 }

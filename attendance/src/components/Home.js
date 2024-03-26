@@ -125,7 +125,7 @@ function Home() {
                 field.onChange(newValue);
                 setSelectedName(newValue);
               }}
-              value={field.value}
+              value={selectedName}
               disablePortal
               id="combo-box-demo"
               options={members.map((member) => member.name)}
@@ -135,9 +135,7 @@ function Home() {
                   {...params}
                   label="Select Your Name"
                   error={!!errors.selectedName}
-                  helperText={
-                    errors.selectedName ? "Please select your name." : ""
-                  }
+                  helperText={errors.selectedName && "Please select your name."}
                 />
               )}
             />
@@ -177,9 +175,7 @@ function Home() {
         {errors.date && (
           <span>Please select the day(s) you will be absent from choir.</span>
         )}
-        <button type="submit" className="button">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
 
       <footer>
