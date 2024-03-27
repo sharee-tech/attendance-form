@@ -12,13 +12,13 @@ export default function Absences() {
   const [absences, setAbsences] = useState([]);
   const [selected, setSelected] = useState([]);
 
-  function handleChecked(item) {
-    setSelected([...selected, item]);
-  }
+  // function handleChecked(item) {
+  //   setSelected([...selected, item]);
+  // }
 
-  function selectedIds(selected) {
-    return selected.map((member) => member.id);
-  }
+  // function selectedIds(selected) {
+  //   return selected.map((member) => member.id);
+  // }
 
   async function deleteAllAbsences() {
     const { error } = await supabase
@@ -90,6 +90,7 @@ export default function Absences() {
         ))}
       </div>
       <button
+        className="clear-all"
         onClick={() => {
           if (window.confirm("Are you sure?")) {
             deleteAllAbsences();

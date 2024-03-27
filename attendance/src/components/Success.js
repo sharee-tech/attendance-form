@@ -5,10 +5,10 @@ import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import { useLocation } from "react-router-dom";
 
-export default function Success() {
-  const [open, setOpen] = React.useState(true);
-
+export default function SuccessAlert({ open, setOpen }) {
+  const path = useLocation();
   return (
     <Box sx={{ width: "100%" }}>
       <Collapse in={open}>
@@ -27,18 +27,12 @@ export default function Success() {
           }
           sx={{ mb: 2 }}
         >
-          Click the close icon to see the Collapse transition in action!
+          {path.pathname === "/"
+            ? "Dates submitted successfully!"
+            : "Member submitted successfully!"}
+          {/* Dates submitted successfully! */}
         </Alert>
       </Collapse>
-      <Button
-        disabled={open}
-        variant="outlined"
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        Re-open
-      </Button>
     </Box>
   );
 }

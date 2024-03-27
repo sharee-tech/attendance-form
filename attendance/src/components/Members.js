@@ -1,7 +1,9 @@
+import React from "react";
 import Header from "./Header";
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import SuccessAlert from "./Success";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
@@ -9,6 +11,11 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function Members() {
   const [members, setMembers] = useState([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [section, setSection] = useState("");
+  const [open, setOpen] = React.useState(false);
+
   useEffect(() => {
     getMembers();
   }, []);
@@ -34,18 +41,15 @@ export default function Members() {
     }
   }
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [section, setSection] = useState("");
-
   const handleSubmit = (e) => {
     e.preventDefault();
     addMember();
     getMembers();
-    alert("Submitted successfully!");
     setFirstName("");
     setLastName("");
     setSection("");
+    setOpen(true);
+    // alert("Submitted successfully!");
   };
 
   async function addMember() {
@@ -61,13 +65,15 @@ export default function Members() {
 
   return (
     <>
+      <SuccessAlert open={open} setOpen={setOpen} />
       <Header />
       <h1>Members</h1>
       <h3>Add a member to the choir roster</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="add-member">
         <div>
-          <label>First Name: </label>
+          <label>First Name</label>
           <input
+            className="add-member-field"
             type="text"
             id="firstName"
             value={firstName}
@@ -76,8 +82,9 @@ export default function Members() {
           />
         </div>
         <div>
-          <label>Last Name: </label>
+          <label>Last Name</label>
           <input
+            className="add-member-field"
             type="text"
             id="lastName"
             value={lastName}
@@ -86,8 +93,9 @@ export default function Members() {
           />
         </div>
         <div>
-          <label>Section: </label>
+          <label>Section</label>
           <input
+            className="add-member-field"
             type="text"
             id="section"
             value={section}
@@ -97,7 +105,7 @@ export default function Members() {
         </div>
         <button type="submit">Submit</button>
       </form>
-      <table>
+      <table className="member-table">
         <thead>
           <tr>
             <th scope="col">Delete</th>

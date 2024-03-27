@@ -2,7 +2,6 @@ import { NavLink, useLocation } from "react-router-dom";
 
 export default function Header() {
   const path = useLocation();
-  console.log(path.pathname);
   return (
     <header>
       {(() => {
@@ -23,9 +22,14 @@ export default function Header() {
             return <span></span>;
           case "/members":
             return (
-              <NavLink to="/admin" className="link">
-                ADMIN (show absences)
-              </NavLink>
+              <>
+                <NavLink to="/" className="link">
+                  HOME
+                </NavLink>
+                <NavLink to="/admin" className="link">
+                  ABSENCES
+                </NavLink>
+              </>
             );
           case "/absences":
             return (
