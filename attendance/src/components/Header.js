@@ -12,8 +12,8 @@ export default function Header() {
                 <NavLink to="/" className="link">
                   HOME
                 </NavLink>
-                <NavLink to="/members" className="link">
-                  MEMBERS
+                <NavLink to="/roster" className="link">
+                  ROSTER
                 </NavLink>
               </>
             );
@@ -21,6 +21,17 @@ export default function Header() {
             // return <img src="../favicon.png" alt="icon" width="24px" />;
             return <span></span>;
           case "/members":
+            return (
+              <>
+                <NavLink to="/" className="link">
+                  HOME
+                </NavLink>
+                <NavLink to="/admin" className="link">
+                  ABSENCES
+                </NavLink>
+              </>
+            );
+          case "/roster":
             return (
               <>
                 <NavLink to="/" className="link">
