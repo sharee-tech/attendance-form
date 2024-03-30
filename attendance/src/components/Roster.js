@@ -5,7 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import SuccessAlert from "./Success";
 import RosterTable from "./RosterTable";
-// import Members from "./Members";
+import Members from "./Members";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
@@ -107,8 +107,8 @@ export default function Roster() {
         </div>
         <button type="submit">Submit</button>
       </form>
-      {/* <Members /> */}
-      <RosterTable />
+      <Members />
+      {/* <RosterTable /> */}
     </>
   );
 }
