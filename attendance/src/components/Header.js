@@ -19,7 +19,10 @@ export default function Header() {
             );
           case "/":
             // return <img src="../favicon.png" alt="icon" width="24px" />;
-            return <span></span>;
+            // return <span></span>;
+            <NavLink to="/admin" className="link">
+              ABSENCES
+            </NavLink>;
           case "/members":
             return (
               <>
