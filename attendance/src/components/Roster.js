@@ -92,7 +92,6 @@ export default function Roster() {
         </div>
         <button type="submit">Submit</button>
       </form>
-
       <RosterTable memberData={members} setMemberData={setMembers} />
     </>
   );
