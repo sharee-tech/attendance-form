@@ -6,44 +6,12 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { createClient } from "@supabase/supabase-js";
 import Header from "./Header";
-import Success from "./Success";
-import Box from "@mui/material/Box";
-import Alert from "@mui/material/Alert";
-import IconButton from "@mui/material/IconButton";
-import Collapse from "@mui/material/Collapse";
-import Button from "@mui/material/Button";
-import CloseIcon from "@mui/icons-material/Close";
+
 import SuccessAlert from "./Success";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-// function SuccessAlert({ open, setOpen }) {
-//   return (
-//     <Box sx={{ width: "100%" }}>
-//       <Collapse in={open}>
-//         <Alert
-//           action={
-//             <IconButton
-//               aria-label="close"
-//               color="inherit"
-//               size="small"
-//               onClick={() => {
-//                 setOpen(false);
-//               }}
-//             >
-//               <CloseIcon fontSize="inherit" />
-//             </IconButton>
-//           }
-//           sx={{ mb: 2 }}
-//         >
-//           Dates submitted successfully!
-//         </Alert>
-//       </Collapse>
-//     </Box>
-//   );
-// }
 
 function Home() {
   const [selectedDate, setSelectedDate] = useState([]);
@@ -98,7 +66,7 @@ function Home() {
 
   return (
     <>
-      <SuccessAlert open={open} setOpen={setOpen} />
+      <SuccessAlert open={open} setOpen={setOpen} mode={"dates"} />
       <Header />
       <h1>Choir Attendance</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="select-member">
