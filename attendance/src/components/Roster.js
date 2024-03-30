@@ -1,11 +1,9 @@
 import React from "react";
 import Header from "./Header";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import SuccessAlert from "./Success";
 import RosterTable from "./RosterTable";
-// import Members from "./Members";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
@@ -18,40 +16,21 @@ export default function Roster() {
   const [section, setSection] = useState("");
   const [open, setOpen] = React.useState(false);
 
-  // useEffect(() => {
-  //   getMembers();
-  // }, []);
-
-  // async function getMembers() {
-  //   const { data } = await supabase
-  //     .from("members")
-  //     .select()
-  //     .order("first_name", { ascending: true });
-  //   setMembers(data);
-  // }
-
-  // async function deleteMember(id) {
-  //   const { error } = await supabase
-  //     .from("members")
-  //     .delete()
-  //     .eq("id", id);
-
-  //   if (error) {
-  //     console.error("Error deleting member:", error.message);
-  //   } else {
-  //     setMembers(members.filter((member) => member.id !== id));
-  //   }
-  // }
+  async function getMembers() {
+    const { data } = await supabase
+      .from("members")
+      .select()
+      .order("first_name", { ascending: true });
+    setMembers(data);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     addMember();
-    // getMembers();
     setFirstName("");
     setLastName("");
     setSection("");
     setOpen(true);
-    // alert("Submitted successfully!");
   };
 
   async function addMember() {
@@ -61,13 +40,13 @@ export default function Roster() {
     if (error) {
       console.error("Error inserting absences:", error.message);
     } else {
-      console.log("Absences inserted successfully");
+      getMembers();
     }
   }
 
   return (
     <>
-      <SuccessAlert open={open} setOpen={setOpen} />
+      <SuccessAlert open={open} setOpen={setOpen} mode={"add"} />
       <Header />
       <h1>Roster</h1>
       <h3>Add a member to the choir roster</h3>
@@ -96,19 +75,25 @@ export default function Roster() {
         </div>
         <div>
           <label>Section</label>
-          <input
+          <select
             className="add-member-field"
-            type="text"
             id="section"
             value={section}
             onChange={(e) => setSection(e.target.value)}
             required
-          />
+          >
+            <option value="Soprano">Soprano</option>
+            <option value="Alto">Alto</option>
+            <option value="Tenor">Tenor</option>
+            <option value="Bass">Bass</option>
+            <option value="Organist">Organist</option>
+            <option value="Conductor">Conductor</option>
+          </select>
         </div>
         <button type="submit">Submit</button>
       </form>
-      {/* <Members /> */}
-      <RosterTable />
+
+      <RosterTable memberData={members} setMemberData={setMembers} />
     </>
   );
 }

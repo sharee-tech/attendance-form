@@ -3,12 +3,10 @@ import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
-import Button from "@mui/material/Button";
-import CloseIcon from "@mui/icons-material/Close";
-import { useLocation } from "react-router-dom";
 
-export default function SuccessAlert({ open, setOpen }) {
-  const path = useLocation();
+import CloseIcon from "@mui/icons-material/Close";
+
+export default function SuccessAlert({ open, setOpen, mode }) {
   return (
     <Box sx={{ width: "100%" }}>
       <Collapse in={open}>
@@ -27,10 +25,11 @@ export default function SuccessAlert({ open, setOpen }) {
           }
           sx={{ mb: 2 }}
         >
-          {path.pathname === "/"
+          {mode === "delete"
+            ? "Member removed."
+            : mode === "dates"
             ? "Dates submitted successfully!"
-            : "Member submitted successfully!"}
-          {/* Dates submitted successfully! */}
+            : "Member added successfully!"}
         </Alert>
       </Collapse>
     </Box>
