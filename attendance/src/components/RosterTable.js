@@ -223,15 +223,16 @@ export default function RosterTable({
   }
 
   async function deleteMember() {
-    const { error } = await supabase
-      .from("members")
-      .delete()
-      .in("id", selected);
-
-    if (error) {
-      console.error("Error deleting member:", error.message);
-    } else {
-      getMembers();
+    if (window.confirm("Are you sure?")) {
+      const { error } = await supabase
+        .from("members")
+        .delete()
+        .in("id", selected);
+      if (error) {
+        console.error("Error deleting member:", error.message);
+      } else {
+        getMembers();
+      }
     }
   }
 
