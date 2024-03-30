@@ -40,6 +40,27 @@ ul li {
   text-align: left;
 }
 
+.select-member {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 25px 0;
+  align-items: center;
+}
+
+.add-member {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 25px auto;
+  align-items: center;
+}
+.add-member div {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
 .add-member-field {
   width: 320px;
   font-family: "IBM Plex Sans", sans-serif;
@@ -61,30 +82,15 @@ ul li {
   /* box-shadow: 0 0 0 3px #b3b3b3; */
 }
 
-.select-member {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin: 25px 0;
-  align-items: center;
+.mui-table {
+  min-width: 600px;
 }
 
-.add-member {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin: 25px 0;
-  align-items: center;
+@media screen and (max-width: 599px) {
+  .mui-table {
+    min-width: 320px;
+  }
 }
-.add-member div {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-
-/* .add-member div label {
-  align-items: flex-start;
-} */
 
 .member-table {
   border-collapse: collapse;
