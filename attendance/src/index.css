@@ -107,6 +107,16 @@ ul li {
   align-items: flex-start;
 } */
 
+.mui-table {
+  min-width: 600px;
+}
+
+@media screen and (max-width: 599px) {
+  .mui-table {
+    min-width: 320px;
+  }
+}
+
 .member-table {
   border-collapse: collapse;
   margin-top: 5em;

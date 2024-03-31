@@ -224,15 +224,16 @@ export default function RosterTable({
   }
 
   async function deleteMember() {
-    const { error } = await supabase
-      .from("members")
-      .delete()
-      .in("id", selected);
-
-    if (error) {
-      console.error("Error deleting member:", error.message);
-    } else {
-      getMembers();
+    if (window.confirm("Are you sure?")) {
+      const { error } = await supabase
+        .from("members")
+        .delete()
+        .in("id", selected);
+      if (error) {
+        console.error("Error deleting member:", error.message);
+      } else {
+        getMembers();
+      }
     }
   }
 
@@ -312,7 +313,8 @@ export default function RosterTable({
             />
             <TableContainer>
               <Table
-                sx={{ minWidth: 750 }}
+                className="mui-table"
+                // sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
                 // size={dense ? "small" : "medium"}
               >
@@ -399,6 +401,10 @@ export default function RosterTable({
             />
           </Paper>
         )}
+        {/* <FormControlLabel
+          control={<Switch checked={dense} onChange={handleChangeDense} />}
+          label="Expanded View"
+        /> */}
       </Box>
     </div>
   );
