@@ -312,7 +312,8 @@ export default function RosterTable({
             />
             <TableContainer>
               <Table
-                sx={{ minWidth: 750 }}
+                className="mui-table"
+                // sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
                 // size={dense ? "small" : "medium"}
               >
@@ -399,10 +400,10 @@ export default function RosterTable({
             />
           </Paper>
         )}
-        <FormControlLabel
+        {/* <FormControlLabel
           control={<Switch checked={dense} onChange={handleChangeDense} />}
           label="Expanded View"
-        />
+        /> */}
       </Box>
     </div>
   );
