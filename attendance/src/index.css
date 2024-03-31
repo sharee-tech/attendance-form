@@ -35,6 +35,10 @@ h3 {
   margin: 10px 0;
   color: #303030;
 }
+
+.add-member-heading {
+  margin-top: 40px;
+}
 ul li {
   padding: 0.4rem;
   text-align: left;
@@ -48,21 +52,30 @@ ul li {
   align-items: center;
 }
 
-.add-member {
+.add-member-form {
   display: flex;
   flex-direction: column;
   gap: 25px;
-  margin: 25px auto;
+  margin: 25px 0;
   align-items: center;
 }
-.add-member div {
+.add-member-text-group {
   display: flex;
   flex-direction: column;
   align-items: start;
 }
 
-.add-member-field {
+.add-member-field-group {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.add-member-input {
   width: 320px;
+  height: 50px;
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
@@ -81,6 +94,18 @@ ul li {
   outline: 0;
   /* box-shadow: 0 0 0 3px #b3b3b3; */
 }
+
+.selected-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 25px 0;
+  align-items: center;
+}
+
+/* .add-member div label {
+  align-items: flex-start;
+} */
 
 .mui-table {
   min-width: 600px;
