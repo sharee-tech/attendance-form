@@ -66,7 +66,6 @@ function Home() {
 
   return (
     <>
-      <SuccessAlert open={open} setOpen={setOpen} mode={"dates"} />
       <Header />
       <h1>Choir Attendance</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="select-member">
@@ -99,6 +98,8 @@ function Home() {
           )}
         />
         <h3>Indicate which day(s) you will be absent</h3>
+        <SuccessAlert open={open} setOpen={setOpen} mode={"dates"} />
+
         <Controller
           control={control}
           name="date"

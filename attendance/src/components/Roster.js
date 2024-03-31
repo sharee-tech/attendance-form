@@ -54,10 +54,10 @@ export default function Roster() {
 
   return (
     <>
-      <SuccessAlert open={open} setOpen={setOpen} mode={"add"} />
       <Header />
       <h1>Roster</h1>
       <RosterTable memberData={members} setMemberData={setMembers} />
+      <SuccessAlert open={open} setOpen={setOpen} mode={"add"} />
       <h3 className="add-member-heading">Add a new member</h3>
       <hr style={{ maxWidth: "250px", margin: "auto" }}></hr>
 
