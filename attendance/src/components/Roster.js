@@ -59,7 +59,7 @@ export default function Roster() {
       <h1>Roster</h1>
       <RosterTable memberData={members} setMemberData={setMembers} />
       <h3 className="add-member-heading">Add a new member</h3>
-      <hr></hr>
+      <hr style={{ maxWidth: "250px", margin: "auto" }}></hr>
 
       <form onSubmit={handleSubmit} className="add-member-form">
         <div className="add-member-text-group">
