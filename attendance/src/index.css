@@ -194,12 +194,8 @@ button {
   border: none;
   padding: 0.8rem 2.4rem;
   font-family: "Roboto";
-  /* font-size: 1.4rem; */
-  /* font-weight: 700; */
-  /* margin: 0 0.8rem; */
   border-radius: 4px;
   color: white;
-  /* display: inline-block; */
   width: fit-content;
   cursor: pointer;
 }
@@ -217,16 +213,27 @@ button {
   color: #a6282e !important;
 }
 
-.rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
-  background-color: #a6282e !important;
-  color: #fff;
-}
-
 .rmdp-day.rmdp-today span {
-  background-color: #a0a0a0 !important;
-  color: #fff;
+  background-color: #fff !important;
+  color: black !important;
+  border-radius: 50% !important;
+  border: 1px solid #a6282e !important;
 }
 
 .rmdp-day.rmdp-selected span:not(.highlight) {
   background-color: #a6282e !important;
+}
+
+/*https://stackoverflow.com/questions/23885255/how-to-remove-ignore-hover-css-style-on-touch-devices*/
+@media (hover: hover) and (pointer: fine) {
+  .rmdp-day.rmdp-today span:hover {
+    border: none !important;
+  }
+  .rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
+    background-color: #c8c8c8 !important;
+    color: #fff;
+  }
+  span.sd:hover {
+    color: #fff !important;
+  }
 }

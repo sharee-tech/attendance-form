@@ -68,7 +68,11 @@ function Home() {
     <>
       <Header />
       <h1>Choir Attendance</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="select-member">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="select-member"
+        autoComplete="off"
+      >
         <Controller
           control={control}
           name="selectedName"
@@ -80,7 +84,7 @@ function Home() {
                 setSelectedName(newValue);
               }}
               value={selectedName}
-              disablePortal
+              // disablePortal
               id="combo-box-demo"
               options={members.map(
                 (member) => `${member.first_name} ${member.last_name}`
@@ -92,6 +96,9 @@ function Home() {
                   label="Select Your Name"
                   error={!!errors.selectedName}
                   helperText={errors.selectedName && "Please select your name."}
+                  // name="selectedName"
+                  // id="selectedName"
+                  // autoComplete="name"
                 />
               )}
             />
