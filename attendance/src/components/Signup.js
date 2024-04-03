@@ -91,8 +91,8 @@ export default function Signup() {
 
           {/* <button type="submit">Sign up</button> */}
         </form>
-        <br></br>
       </div>
+      <br></br>
       <p>
         Already have an account? <Link to="/login">Log In</Link>
       </p>
