@@ -1,0 +1,28 @@
+plugins = []
+headers = []
+redirects = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "/Users/shareethompson/Documents/_CODE/attendance-form/attendance"
+publishOrigin = "default"
+base = "/Users/shareethompson/Documents/_CODE/attendance-form/attendance"
+command = "npm run build"
+commandOrigin = "heuristics"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]

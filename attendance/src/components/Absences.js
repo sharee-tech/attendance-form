@@ -3,10 +3,11 @@ import Header from "./Header";
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { supabase } from "../config/supabaseClient";
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+// const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+// const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function Absences() {
   const [absences, setAbsences] = useState([]);
