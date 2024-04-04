@@ -323,7 +323,6 @@ button {
   background-color: #a6282e !important;
 }
 
-
 /* ---------------------- Signup Page Styling --------------------- */
 .card {
   border: 1px solid #ccc;
@@ -475,6 +474,7 @@ input[type="password"] {
   border: none;
   color: #a6282e;
   cursor: pointer;
+}
 
 /*https://stackoverflow.com/questions/23885255/how-to-remove-ignore-hover-css-style-on-touch-devices*/
 @media (hover: hover) and (pointer: fine) {
