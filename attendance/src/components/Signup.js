@@ -103,9 +103,9 @@ export default function Signup() {
         </form>
       </div>
       <br></br>
-      <p>
+      <div className="w-100 text-center mt-2">
         Already have an account? <Link to="/login">Log In</Link>
-      </p>
+      </div>
     </>
   );
 }

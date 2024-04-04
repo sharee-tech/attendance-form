@@ -24,7 +24,7 @@ export default function Login() {
         error,
       } = await login(emailRef.current.value, passwordRef.current.value);
       if (error) setErrorMsg(error.message);
-      if (user && session) navigate("/");
+      if (user && session) navigate("/admin");
     } catch (error) {
       setErrorMsg("Email or Password Incorrect");
     }
@@ -64,9 +64,12 @@ export default function Login() {
         </form>
       </div>
       <br></br>
-      <p>
+      <div className="w-100 text-center mt-2">
         Don't have an account? <Link to="/signup">Sign Up</Link>
-      </p>
+      </div>
+      <div className="w-100 text-center mt-2">
+        Forgot Password? <Link to={"/password-reset"}>Click Here</Link>
+      </div>
     </>
   );
 }

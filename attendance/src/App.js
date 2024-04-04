@@ -16,6 +16,8 @@ import AuthRoute from "./components/AuthRoute";
 import AuthProvider from "./context/AuthProvider";
 import { useAuth } from "./context/AuthProvider";
 import NavMenu from "./components/NavMenu";
+import PasswordReset from "./components/PasswordReset";
+import UpdatePassword from "./components/UpdatePassword";
 // import { Session } from "@supabase/supabase-js";
 // import { AuthProvider } from "./contexts/AuthProvider";
 
@@ -83,6 +85,8 @@ function App() {
         </Route>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/password-reset" element={<PasswordReset />} />
+        <Route path="/update-password" element={<UpdatePassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
