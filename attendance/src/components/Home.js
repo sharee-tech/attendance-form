@@ -6,12 +6,14 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { createClient } from "@supabase/supabase-js";
 import Header from "./Header";
-
+import { supabase } from "../config/supabaseClient";
 import SuccessAlert from "./Success";
+import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+// const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+// const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 function Home() {
   const [selectedDate, setSelectedDate] = useState([]);
@@ -182,7 +184,7 @@ function Home() {
           <button type="submit">Submit</button>
         </div>
       </form>
-
+      {/* <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} /> */}
       <footer>
         <Copyright />
       </footer>

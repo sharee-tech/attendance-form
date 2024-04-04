@@ -10,8 +10,15 @@ body {
   color: #a6282e;
   font-family: "Roboto";
   text-align: center;
-  /* gap: 50px; */
 }
+
+/* .bob {
+  display: flex;
+  justify-content: center;
+  color: #a6282e;
+  font-family: "Roboto";
+  text-align: center;
+} */
 
 header {
   display: flex;
@@ -315,6 +322,159 @@ button {
 .rmdp-day.rmdp-selected span:not(.highlight) {
   background-color: #a6282e !important;
 }
+
+
+/* ---------------------- Signup Page Styling --------------------- */
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+form {
+  margin-top: 20px;
+}
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.alert {
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.text-center {
+  text-align: center;
+}
+.mt-2 {
+  margin-top: 20px;
+}
+.w-50 {
+  width: 50%;
+}
+
+/* ------------------------ Nav Menu ----------------------  */
+
+.nav-menu {
+  background-color: #343a40;
+  padding: 1rem;
+}
+
+.container {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-menu-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-menu-brand {
+  color: #fff;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+/* .nav-menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-menu-toggle-icon {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: #fff;
+  position: relative;
+}
+
+.nav-menu-toggle-icon::before,
+.nav-menu-toggle-icon::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  position: absolute;
+  transition: transform 0.2s ease;
+}
+
+.nav-menu-toggle-icon::before {
+  top: -8px;
+}
+
+.nav-menu-toggle-icon::after {
+  bottom: -8px;
+}
+
+.nav-menu-toggle.open .nav-menu-toggle-icon::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.nav-menu-toggle.open .nav-menu-toggle-icon::after {
+  transform: rotate(-45deg);
+  bottom: 0;
+} */
+
+.nav-menu-collapse {
+  display: flex;
+}
+
+.nav-menu-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin-left: 1rem;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logout-btn {
+  background: white;
+  border: none;
+  color: #a6282e;
+  cursor: pointer;
 
 /*https://stackoverflow.com/questions/23885255/how-to-remove-ignore-hover-css-style-on-touch-devices*/
 @media (hover: hover) and (pointer: fine) {
