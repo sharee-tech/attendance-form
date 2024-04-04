@@ -4,16 +4,9 @@ import { Controller, useForm } from "react-hook-form";
 import { Calendar } from "react-multi-date-picker";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { createClient } from "@supabase/supabase-js";
 import Header from "./Header";
 import { supabase } from "../config/supabaseClient";
 import SuccessAlert from "./Success";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-
-// const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-// const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-// const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 function Home() {
   const [selectedDate, setSelectedDate] = useState([]);
@@ -87,9 +80,6 @@ function Home() {
               value={selectedName}
               disablePortal
               id="combo-box-demo"
-              // options={members.map(
-              //   (member) => `${member.first_name} ${member.last_name}`
-              // )}
               options={sortedOptions}
               sx={{ width: 300, margin: "30px auto" }}
               autocomplete="off"
@@ -97,8 +87,6 @@ function Home() {
                 <TextField
                   {...params}
                   label="Select Your Name"
-                  // error={!!errors.selectedName}
-                  // helperText={errors.selectedName && ""}
                   autocomplete="off"
                 />
               )}
@@ -107,43 +95,6 @@ function Home() {
         />
         {errors.selectedName && <span>Please select your name.</span>}
 
-        {/* <Controller
-          control={control}
-          name="selectedName"
-          rules={{ required: true }}
-          render={({ field }) => (
-            <div className="dropdown">
-              <input
-                type="text"
-                onChange={(event) => {
-                  const newValue = event.target.value;
-                  field.onChange(newValue);
-                  setSelectedName(newValue);
-                }}
-                value={selectedName}
-                placeholder="Select your name"
-                // list="names"
-                className="dropbtn"
-              />
-              <datalist className="dropdown-content">
-                {members.map((member, index) => (
-                  <option
-                    key={index}
-                    value={`${member.first_name} ${member.last_name}`}
-                    onClick={() =>
-                      setSelectedName(
-                        `${member.first_name} ${member.last_name}`
-                      )
-                    }
-                  >{`${member.first_name} ${member.last_name}`}</option>
-                ))}
-              </datalist>
-              {errors.selectedName && (
-                <span>Please enter or select your name.</span>
-              )}
-            </div>
-          )}
-        /> */}
         <div className="select-dates">
           <h3>Indicate which day(s) you will be absent</h3>
           <SuccessAlert open={open} setOpen={setOpen} mode={"dates"} />
@@ -184,7 +135,6 @@ function Home() {
           <button type="submit">Submit</button>
         </div>
       </form>
-      {/* <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} /> */}
       <footer>
         <Copyright />
       </footer>

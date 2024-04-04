@@ -4,15 +4,14 @@ import { createClient } from "@supabase/supabase-js";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { supabase } from "../config/supabaseClient";
 
-// const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-// const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-// const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
 export default function Absences() {
   const [absences, setAbsences] = useState([]);
 
   async function deleteAllAbsences() {
-    const { error } = await supabase.from("absences").delete().neq("id", 0);
+    const { error } = await supabase
+      .from("absences")
+      .delete()
+      .neq("id", 0);
     if (error) {
       console.error("Error deleting absence:", error.message);
     } else {
@@ -21,7 +20,10 @@ export default function Absences() {
   }
 
   async function deleteAbsence(id) {
-    const { error } = await supabase.from("absences").delete().eq("id", id);
+    const { error } = await supabase
+      .from("absences")
+      .delete()
+      .eq("id", id);
     if (error) {
       console.error("Error deleting absence:", error.message);
     } else {

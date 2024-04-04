@@ -59,11 +59,8 @@ export default function Login() {
               Login
             </button>
           </div>
-
-          {/* <button type="submit">Login</button> */}
         </form>
       </div>
-      <br></br>
       <div className="w-100 text-center mt-2">
         Don't have an account? <Link to="/signup">Sign Up</Link>
       </div>

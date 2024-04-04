@@ -1,3 +1,6 @@
+// Tutorial code found here:
+// https://blog.openreplay.com/authentication-in-react-with-supabase/
+
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "../config/supabaseClient";
 

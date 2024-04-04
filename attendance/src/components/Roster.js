@@ -1,15 +1,11 @@
 import React from "react";
 import Header from "./Header";
 import { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
 import SuccessAlert from "./Success";
 import RosterTable from "./RosterTable";
 import { Controller, useForm } from "react-hook-form";
 import { Autocomplete, TextField } from "@mui/material";
-
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { supabase } from "../config/supabaseClient";
 
 export default function Roster() {
   const [members, setMembers] = useState([]);

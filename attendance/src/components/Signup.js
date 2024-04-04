@@ -10,9 +10,6 @@ export default function Signup() {
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // const register = (email, password) =>
-  //   supabase.auth.signUp({ email, password });
-
   async function register(email, password) {
     const { data, error } = await supabase.auth.signUp({
       email: email,
@@ -98,11 +95,8 @@ export default function Signup() {
               Register
             </button>
           </div>
-
-          {/* <button type="submit">Sign up</button> */}
         </form>
       </div>
-      <br></br>
       <div className="w-100 text-center mt-2">
         Already have an account? <Link to="/login">Log In</Link>
       </div>
