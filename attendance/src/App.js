@@ -13,8 +13,9 @@ import Roster from "./components/Roster";
 import Dashboard from "./components/Dashboard";
 import Signup from "./components/Signup";
 import AuthRoute from "./components/AuthRoute";
-import AuthProvider from "./contexts/AuthProvider";
-import { useAuth } from "./contexts/AuthProvider";
+import AuthProvider from "./context/AuthProvider";
+import { useAuth } from "./context/AuthProvider";
+import NavMenu from "./components/NavMenu";
 // import { Session } from "@supabase/supabase-js";
 // import { AuthProvider } from "./contexts/AuthProvider";
 
@@ -51,7 +52,7 @@ function App() {
   //   return (
   //     <>
   //       <Routes>
-  //         <Route exact path="/" element={<Home />} />
+  //         <Route path="/" element={<Home />} />
   //       </Routes>
   //     </>
   //   );
@@ -59,12 +60,12 @@ function App() {
   //   return (
   //     <>
   //       <Routes>
-  //         <Route exact path="/" element={<Home />} />
-  //         <Route exact path="/admin" element={<Admin />} />
-  //         <Route exact path="/login" element={<Login />} />
-  //         <Route exact path="/members" element={<Members />} />
-  //         <Route exact path="/absences" element={<Absences />} />
-  //         <Route exact path="/roster" element={<Roster />} />
+  //         <Route path="/" element={<Home />} />
+  //         <Route path="/admin" element={<Admin />} />
+  //         <Route path="/login" element={<Login />} />
+  //         <Route path="/members" element={<Members />} />
+  //         <Route path="/absences" element={<Absences />} />
+  //         <Route path="/roster" element={<Roster />} />
   //       </Routes>
   //     </>
   //   );
@@ -72,17 +73,18 @@ function App() {
 
   return (
     <>
+      <NavMenu />
       <Routes>
         <Route element={<AuthRoute />}>
-          <Route exact path="/admin" element={<Admin />} />
-          <Route exact path="/members" element={<Members />} />
-          <Route exact path="/absences" element={<Absences />} />
-          <Route exact path="/roster" element={<Roster />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/members" element={<Members />} />
+          <Route path="/absences" element={<Absences />} />
+          <Route path="/roster" element={<Roster />} />
         </Route>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
-        <Route exact path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </>
   );

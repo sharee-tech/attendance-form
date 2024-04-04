@@ -6,7 +6,13 @@ const AuthContext = createContext({});
 export const useAuth = () => useContext(AuthContext);
 
 const login = (email, password) =>
-  supabase.auth.signInWithPassword({ email, password });
+  supabase.auth.signInWithPassword({
+    email: email,
+    password: password,
+    options: {
+      redirectTo: "http://localhost:3000/admin",
+    },
+  });
 
 const signOut = () => supabase.auth.signOut();
 
@@ -30,7 +36,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, signOut }}>
+    <AuthContext.Provider value={{ user, login, signOut, auth }}>
       {children}
     </AuthContext.Provider>
   );

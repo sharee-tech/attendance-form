@@ -10,8 +10,18 @@ export default function Signup() {
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const register = (email, password) =>
-    supabase.auth.signUp({ email, password });
+  // const register = (email, password) =>
+  //   supabase.auth.signUp({ email, password });
+
+  async function register(email, password) {
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        emailRedirectTo: "http://localhost:3000/login",
+      },
+    });
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
