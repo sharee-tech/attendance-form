@@ -207,7 +207,6 @@ export default function RosterTable({
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -401,10 +400,6 @@ export default function RosterTable({
             />
           </Paper>
         )}
-        {/* <FormControlLabel
-          control={<Switch checked={dense} onChange={handleChangeDense} />}
-          label="Expanded View"
-        /> */}
       </Box>
     </div>
   );

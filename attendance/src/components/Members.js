@@ -1,9 +1,7 @@
 import React from "react";
-// import Header from "./Header";
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-// import SuccessAlert from "./Success";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
@@ -11,10 +9,6 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function Members() {
   const [members, setMembers] = useState([]);
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [section, setSection] = useState("");
-  // const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     getMembers();
@@ -43,25 +37,8 @@ export default function Members() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // addMember();
     getMembers();
-    // setFirstName("");
-    // setLastName("");
-    // setSection("");
-    // setOpen(true);
-    // alert("Submitted successfully!");
   };
-
-  // async function addMember() {
-  //   const { error } = await supabase
-  //     .from("members")
-  //     .insert({ first_name: firstName, last_name: lastName, section: section });
-  //   if (error) {
-  //     console.error("Error inserting absences:", error.message);
-  //   } else {
-  //     console.log("Absences inserted successfully");
-  //   }
-  // }
 
   return (
     <>

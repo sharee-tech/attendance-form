@@ -12,14 +12,6 @@ body {
   text-align: center;
 }
 
-/* .bob {
-  display: flex;
-  justify-content: center;
-  color: #a6282e;
-  font-family: "Roboto";
-  text-align: center;
-} */
-
 header {
   display: flex;
   justify-content: flex-end;
@@ -58,94 +50,6 @@ ul li {
   margin: 25px 0;
   align-items: center;
 }
-
-/* ---------------- dropdown select ----------------- */
-/* .dropbtn {
-  width: 320px;
-  height: 50px;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 1.5;
-  padding: 8px 12px;
-  border-radius: 4px;
-  color: #333;
-  border: 1px solid #ccc;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  width: 100%;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 100;
-  max-height: 200px;
-  overflow-y: auto;
-} */
-
-/* .dropdown-content:hover {
-  border: 1px solid rgba(0, 0, 0, 0.87);
-  outline: 0;
-} */
-
-/* .dropdown-content option {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content option:hover {
-  background-color: #f1f1f1;
-  cursor: pointer;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
-  border: 1px solid black;
-  border-radius: 4px;
-}
-
-.dropbtn:focus .dropbtn,
-.dropbtn:active .dropbtn,
-.dropbtn:visited .dropbtn,
-.dropbtn:current .dropbtn {
-  background-color: #3e8e41;
-  border: 1px solid black;
-  border-radius: 50px;
-} */
-
-/* #names {
-  position: absolute;
-  top: calc(100% + 5px); Position the dropdown menu below the input 
-  left: 0;
-  z-index: 1;
-  background-color: #fff; Background color 
-  border: 1px solid #ccc;  Border 
-  max-height: 150px; Max height of the dropdown menu 
-  overflow-y: auto; Enable scrolling if the list exceeds max-height 
-  width: 100%; Match the width of the input 
-} */
-
-/* input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-} */
 
 /* ---------------- add member form ----------------- */
 .add-member-form {
@@ -189,7 +93,6 @@ ul li {
 .add-member-field:focus {
   border: 1px solid rgba(0, 0, 0, 0.87);
   outline: 0;
-  /* box-shadow: 0 0 0 3px #b3b3b3; */
 }
 
 .selected-section {
@@ -199,10 +102,6 @@ ul li {
   margin: 25px 0;
   align-items: center;
 }
-
-/* .add-member div label {
-  align-items: flex-start;
-} */
 
 .mui-table {
   min-width: 600px;
@@ -248,12 +147,7 @@ ul li {
   text-align: center;
   background-color: #a6282e;
   color: white;
-  /* width: 6em; */
 }
-
-/* .member-table th:first-child {
-  width: 50px;
-} */
 
 .absences-list {
   display: flex;

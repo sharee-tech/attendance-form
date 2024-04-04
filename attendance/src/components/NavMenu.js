@@ -50,12 +50,7 @@ const NavMenu = () => {
             </div>
           )}
         </div>
-        {/* <button className="nav-menu-toggle" aria-label="Toggle navigation">
-          <span className="nav-menu-toggle-icon"></span>
-        </button> */}
         <div className="nav-menu-collapse">
-          {/* <ul className="nav-menu-nav"> */}
-
           {auth && (
             <div className="nav-item">
               <button onClick={handleLogout} className="nav-link logout-btn">
@@ -63,7 +58,6 @@ const NavMenu = () => {
               </button>
             </div>
           )}
-          {/* </ul> */}
         </div>
       </div>
     </nav>
