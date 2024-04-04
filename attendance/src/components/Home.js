@@ -28,11 +28,17 @@ function Home() {
       name: selectedName,
       date: date,
     }));
-    const { data, error } = await supabase.from("absences").insert(insertData);
-    if (error) {
+    try {
+      const { data, error } = await supabase
+        .from("absences")
+        .insert(insertData);
+      if (error) {
+        console.error("Error inserting absences:", error.message);
+      } else {
+        console.log("Absences inserted successfully:", data);
+      }
+    } catch (error) {
       console.error("Error inserting absences:", error.message);
-    } else {
-      console.log("Absences inserted successfully:", data);
     }
   }
 
@@ -40,13 +46,15 @@ function Home() {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    setAbsences();
+  const onSubmit = async (data) => {
+    await setAbsences();
     setSelectedDate([]);
     setSelectedName("");
     setOpen(true);
+    reset(); //Reset the form to re-validate selectedName field
   };
 
   function formatSavedDates(allDates) {
