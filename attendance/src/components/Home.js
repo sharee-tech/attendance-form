@@ -50,7 +50,6 @@ function Home() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     setAbsences();
     setSelectedDate([]);
     setSelectedName("");
@@ -63,19 +62,22 @@ function Home() {
       formattedDates.push(date.year + "-" + date.month.number + "-" + date.day);
     });
     setSelectedDate(formattedDates);
-    console.log(formattedDates);
   }
+
+  const sortedOptions = [...members]
+    .sort((a, b) => a.first_name.localeCompare(b.first_name))
+    .map((member) => `${member.first_name} ${member.last_name}`);
 
   return (
     <>
-      <SuccessAlert open={open} setOpen={setOpen} mode={"dates"} />
       <Header />
       <h1>Choir Attendance</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="select-member">
+      <form onSubmit={handleSubmit(onSubmit)} autocomplete="off">
         <Controller
           control={control}
           name="selectedName"
           rules={{ required: true }}
+          autocomplete="off"
           render={({ field }) => (
             <Autocomplete
               onChange={(event, newValue) => {
@@ -85,56 +87,102 @@ function Home() {
               value={selectedName}
               disablePortal
               id="combo-box-demo"
-              options={members.map(
-                (member) => `${member.first_name} ${member.last_name}`
-              )}
-              sx={{ width: 300 }}
+              // options={members.map(
+              //   (member) => `${member.first_name} ${member.last_name}`
+              // )}
+              options={sortedOptions}
+              sx={{ width: 300, margin: "30px auto" }}
+              autocomplete="off"
               renderInput={(params) => (
                 <TextField
                   {...params}
                   label="Select Your Name"
-                  error={!!errors.selectedName}
-                  helperText={errors.selectedName && "Please select your name."}
+                  // error={!!errors.selectedName}
+                  // helperText={errors.selectedName && ""}
+                  autocomplete="off"
                 />
               )}
             />
           )}
         />
-        <h3>Indicate which day(s) you will be absent</h3>
-        <Controller
+        {errors.selectedName && <span>Please select your name.</span>}
+
+        {/* <Controller
           control={control}
-          name="date"
+          name="selectedName"
           rules={{ required: true }}
           render={({ field }) => (
-            <Calendar
-              multiple
-              value={selectedDate}
-              onChange={(date) => {
-                formatSavedDates(date);
-                field.onChange(date);
-              }}
-              format="YYYY-MM-DD"
-              monthYearSeparator="|"
-              mapDays={({ date }) => {
-                let notselectable = [1, 2, 4, 5, 6].includes(
-                  date.weekDay.index
-                );
-
-                if (notselectable)
-                  return {
-                    disabled: true,
-                    style: { color: "#ccc" },
-                    onClick: () =>
-                      alert("You must select a Sunday or a Wednesday"),
-                  };
-              }}
-            />
+            <div className="dropdown">
+              <input
+                type="text"
+                onChange={(event) => {
+                  const newValue = event.target.value;
+                  field.onChange(newValue);
+                  setSelectedName(newValue);
+                }}
+                value={selectedName}
+                placeholder="Select your name"
+                // list="names"
+                className="dropbtn"
+              />
+              <datalist className="dropdown-content">
+                {members.map((member, index) => (
+                  <option
+                    key={index}
+                    value={`${member.first_name} ${member.last_name}`}
+                    onClick={() =>
+                      setSelectedName(
+                        `${member.first_name} ${member.last_name}`
+                      )
+                    }
+                  >{`${member.first_name} ${member.last_name}`}</option>
+                ))}
+              </datalist>
+              {errors.selectedName && (
+                <span>Please enter or select your name.</span>
+              )}
+            </div>
           )}
-        />
-        {errors.date && (
-          <span>Please select the day(s) you will be absent from choir.</span>
-        )}
-        <button type="submit">Submit</button>
+        /> */}
+        <div className="select-dates">
+          <h3>Indicate which day(s) you will be absent</h3>
+          <SuccessAlert open={open} setOpen={setOpen} mode={"dates"} />
+
+          <Controller
+            control={control}
+            name="date"
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Calendar
+                multiple
+                value={selectedDate}
+                onChange={(date) => {
+                  formatSavedDates(date);
+                  field.onChange(date);
+                }}
+                format="YYYY-MM-DD"
+                monthYearSeparator="|"
+                mapDays={({ date }) => {
+                  let notselectable = [1, 2, 4, 5, 6].includes(
+                    date.weekDay.index
+                  );
+
+                  if (notselectable)
+                    return {
+                      disabled: true,
+                      style: { color: "#ccc" },
+                      onClick: () =>
+                        alert("You must select a Sunday or a Wednesday"),
+                    };
+                }}
+              />
+            )}
+          />
+          {errors.date && (
+            <span>Please select the day(s) you will be absent from choir.</span>
+          )}
+          <button type="submit">Submit</button>
+        </div>
       </form>
       {/* <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} /> */}
       <footer>

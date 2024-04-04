@@ -1,5 +1,4 @@
 import moment from "moment";
-import Header from "./Header";
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
@@ -11,21 +10,9 @@ import { supabase } from "../config/supabaseClient";
 
 export default function Absences() {
   const [absences, setAbsences] = useState([]);
-  const [selected, setSelected] = useState([]);
-
-  // function handleChecked(item) {
-  //   setSelected([...selected, item]);
-  // }
-
-  // function selectedIds(selected) {
-  //   return selected.map((member) => member.id);
-  // }
 
   async function deleteAllAbsences() {
-    const { error } = await supabase
-      .from("absences")
-      .delete()
-      .neq("id", 0);
+    const { error } = await supabase.from("absences").delete().neq("id", 0);
     if (error) {
       console.error("Error deleting absence:", error.message);
     } else {
@@ -34,10 +21,7 @@ export default function Absences() {
   }
 
   async function deleteAbsence(id) {
-    const { error } = await supabase
-      .from("absences")
-      .delete()
-      .eq("id", id);
+    const { error } = await supabase.from("absences").delete().eq("id", id);
     if (error) {
       console.error("Error deleting absence:", error.message);
     } else {

@@ -167,14 +167,15 @@ function EnhancedTableToolbar(props) {
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Chancel Choir
-        </Typography>
+        // <Typography
+        //   sx={{ flex: "1 1 100%" }}
+        //   variant="h6"
+        //   id="tableTitle"
+        //   component="div"
+        // >
+        //   Chancel Choir Roster
+        // </Typography>
+        <></>
       )}
 
       {numSelected > 0 ? (
@@ -312,7 +313,8 @@ export default function RosterTable({
             />
             <TableContainer>
               <Table
-                sx={{ minWidth: 750 }}
+                className="mui-table"
+                // sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
                 // size={dense ? "small" : "medium"}
               >
@@ -399,10 +401,10 @@ export default function RosterTable({
             />
           </Paper>
         )}
-        <FormControlLabel
+        {/* <FormControlLabel
           control={<Switch checked={dense} onChange={handleChangeDense} />}
           label="Expanded View"
-        />
+        /> */}
       </Box>
     </div>
   );

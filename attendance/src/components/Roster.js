@@ -4,6 +4,8 @@ import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import SuccessAlert from "./Success";
 import RosterTable from "./RosterTable";
+import { Controller, useForm } from "react-hook-form";
+import { Autocomplete, TextField } from "@mui/material";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
@@ -14,6 +16,7 @@ export default function Roster() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [section, setSection] = useState("");
+
   const [open, setOpen] = React.useState(false);
 
   async function getMembers() {
@@ -44,55 +47,84 @@ export default function Roster() {
     }
   }
 
+  const {
+    control,
+    formState: { errors },
+  } = useForm();
+
   return (
     <>
-      <SuccessAlert open={open} setOpen={setOpen} mode={"add"} />
       <Header />
       <h1>Roster</h1>
-      <h3>Add a member to the choir roster</h3>
-      <form onSubmit={handleSubmit} className="add-member">
-        <div>
-          <label>First Name</label>
-          <input
-            className="add-member-field"
-            type="text"
-            id="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
+      <RosterTable memberData={members} setMemberData={setMembers} />
+      <SuccessAlert open={open} setOpen={setOpen} mode={"add"} />
+      <h3 className="add-member-heading">Add a new member</h3>
+      <hr style={{ maxWidth: "250px", margin: "auto" }}></hr>
+
+      <form onSubmit={handleSubmit} className="add-member-form">
+        <div className="add-member-text-group">
+          <div className="add-member-field-group">
+            <label>First Name</label>
+            <input
+              className="add-member-input"
+              type="text"
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="add-member-field-group">
+            <label>Last Name</label>
+            <input
+              className="add-member-input"
+              type="text"
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
         </div>
-        <div>
-          <label>Last Name</label>
-          <input
-            className="add-member-field"
-            type="text"
-            id="lastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Section</label>
-          <select
-            className="add-member-field"
-            id="section"
-            value={section}
-            onChange={(e) => setSection(e.target.value)}
-            required
-          >
-            <option value="Soprano">Soprano</option>
-            <option value="Alto">Alto</option>
-            <option value="Tenor">Tenor</option>
-            <option value="Bass">Bass</option>
-            <option value="Organist">Organist</option>
-            <option value="Conductor">Conductor</option>
-          </select>
-        </div>
+
+        <Controller
+          className=""
+          control={control}
+          name="selected-section"
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Autocomplete
+              onChange={(event, newValue) => {
+                field.onChange(newValue);
+                setSection(newValue);
+              }}
+              value={section}
+              disablePortal
+              id=""
+              options={[
+                "Soprano",
+                "Alto",
+                "Tenor",
+                "Bass",
+                "Conductor",
+                "Accompanist",
+                "Other",
+              ]}
+              sx={{ width: 320 }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Select a section"
+                  error={!!errors.section}
+                  helperText={errors.selectedName && "Please select a section."}
+                />
+              )}
+            />
+          )}
+        />
+
         <button type="submit">Submit</button>
       </form>
-      <RosterTable memberData={members} setMemberData={setMembers} />
     </>
   );
 }

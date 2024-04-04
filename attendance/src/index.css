@@ -42,13 +42,137 @@ h3 {
   margin: 10px 0;
   color: #303030;
 }
+
+.add-member-heading {
+  margin-top: 40px;
+}
 ul li {
   padding: 0.4rem;
   text-align: left;
 }
 
-.add-member-field {
+.select-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 25px 0;
+  align-items: center;
+}
+
+/* ---------------- dropdown select ----------------- */
+/* .dropbtn {
   width: 320px;
+  height: 50px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #333;
+  border: 1px solid #ccc;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+} */
+
+/* .dropdown-content:hover {
+  border: 1px solid rgba(0, 0, 0, 0.87);
+  outline: 0;
+} */
+
+/* .dropdown-content option {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content option:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.dropbtn:focus .dropbtn,
+.dropbtn:active .dropbtn,
+.dropbtn:visited .dropbtn,
+.dropbtn:current .dropbtn {
+  background-color: #3e8e41;
+  border: 1px solid black;
+  border-radius: 50px;
+} */
+
+/* #names {
+  position: absolute;
+  top: calc(100% + 5px); Position the dropdown menu below the input 
+  left: 0;
+  z-index: 1;
+  background-color: #fff; Background color 
+  border: 1px solid #ccc;  Border 
+  max-height: 150px; Max height of the dropdown menu 
+  overflow-y: auto; Enable scrolling if the list exceeds max-height 
+  width: 100%; Match the width of the input 
+} */
+
+/* input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+} */
+
+/* ---------------- add member form ----------------- */
+.add-member-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 25px 0;
+  align-items: center;
+}
+
+.add-member-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.add-member-field-group {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.add-member-input {
+  width: 320px;
+  height: 50px;
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
@@ -68,30 +192,27 @@ ul li {
   /* box-shadow: 0 0 0 3px #b3b3b3; */
 }
 
-.select-member {
+.selected-section {
   display: flex;
   flex-direction: column;
   gap: 25px;
   margin: 25px 0;
   align-items: center;
-}
-
-.add-member {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin: 25px 0;
-  align-items: center;
-}
-.add-member div {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
 }
 
 /* .add-member div label {
   align-items: flex-start;
 } */
+
+.mui-table {
+  min-width: 600px;
+}
+
+@media screen and (max-width: 599px) {
+  .mui-table {
+    min-width: 320px;
+  }
+}
 
 .member-table {
   border-collapse: collapse;
@@ -169,16 +290,15 @@ button {
   border: none;
   padding: 0.8rem 2.4rem;
   font-family: "Roboto";
-  /* font-size: 1.4rem; */
-  /* font-weight: 700; */
-  /* margin: 0 0.8rem; */
   border-radius: 4px;
   color: white;
-  /* display: inline-block; */
   width: fit-content;
   cursor: pointer;
 }
 
+.rmdp-wrapper {
+  z-index: 1 !important;
+}
 .rmdp-arrow {
   border: solid #a6282e !important;
   border-width: 0 2px 2px 0 !important;
@@ -192,19 +312,17 @@ button {
   color: #a6282e !important;
 }
 
-.rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
-  background-color: #a6282e !important;
-  color: #fff;
-}
-
 .rmdp-day.rmdp-today span {
-  background-color: #a0a0a0 !important;
-  color: #fff;
+  background-color: #fff !important;
+  color: black !important;
+  border-radius: 50% !important;
+  border: 1px solid #a6282e !important;
 }
 
 .rmdp-day.rmdp-selected span:not(.highlight) {
   background-color: #a6282e !important;
 }
+
 
 /* ---------------------- Signup Page Styling --------------------- */
 .card {
@@ -357,4 +475,17 @@ input[type="password"] {
   border: none;
   color: #a6282e;
   cursor: pointer;
+
+/*https://stackoverflow.com/questions/23885255/how-to-remove-ignore-hover-css-style-on-touch-devices*/
+@media (hover: hover) and (pointer: fine) {
+  .rmdp-day.rmdp-today span:hover {
+    border: none !important;
+  }
+  .rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
+    background-color: #c8c8c8 !important;
+    color: #fff;
+  }
+  span.sd:hover {
+    color: #fff !important;
+  }
 }
