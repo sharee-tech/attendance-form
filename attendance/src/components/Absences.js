@@ -27,7 +27,10 @@ export default function Absences() {
     if (error) {
       console.error("Error deleting absence:", error.message);
     } else {
-      setAbsences(absences.filter((absence) => absence.id !== id));
+      // setAbsences(absences.filter((absence) => absence.id !== id));
+      setAbsences((prevAbsences) =>
+        prevAbsences.filter((absence) => absence.id !== id)
+      );
     }
   }
 
