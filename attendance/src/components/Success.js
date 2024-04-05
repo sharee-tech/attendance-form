@@ -6,7 +6,7 @@ import Collapse from "@mui/material/Collapse";
 
 import CloseIcon from "@mui/icons-material/Close";
 
-export default function SuccessAlert({ open, setOpen, mode }) {
+export default function SuccessAlert({ open, setOpen, mode, dates }) {
   return (
     <Box sx={{ width: "100%" }}>
       <Collapse in={open}>
@@ -28,7 +28,10 @@ export default function SuccessAlert({ open, setOpen, mode }) {
           {mode === "delete"
             ? "Member removed."
             : mode === "dates"
-            ? "Dates submitted successfully!"
+            ? // ? "Dates submitted successfully!"
+              `${
+                dates.length > 0 ? dates.join(", ") : "No dates selected."
+              } submitted successfully!`
             : "Member added successfully!"}
         </Alert>
       </Collapse>

@@ -13,6 +13,7 @@ function Home() {
   const [selectedName, setSelectedName] = useState("");
   const [members, setMembers] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [userDates, setUserDates] = useState([]);
 
   useEffect(() => {
     getMembers();
@@ -51,9 +52,9 @@ function Home() {
 
   const onSubmit = async (data) => {
     await setAbsences();
+    setOpen(true);
     setSelectedDate([]);
     setSelectedName("");
-    setOpen(true);
     reset(); //Reset the form to re-validate selectedName field
   };
 
@@ -63,6 +64,14 @@ function Home() {
       formattedDates.push(date.year + "-" + date.month.number + "-" + date.day);
     });
     setSelectedDate(formattedDates);
+  }
+
+  function formatDatesUser(allDates) {
+    const formattedDates = [];
+    allDates.map((date) => {
+      formattedDates.push(date.month.number + "-" + date.day + "-" + date.year);
+    });
+    setUserDates(formattedDates);
   }
 
   const sortedOptions = [...members]
@@ -105,7 +114,12 @@ function Home() {
 
         <div className="select-dates">
           <h3>Indicate which day(s) you will be absent</h3>
-          <SuccessAlert open={open} setOpen={setOpen} mode={"dates"} />
+          <SuccessAlert
+            open={open}
+            setOpen={setOpen}
+            mode={"dates"}
+            dates={userDates}
+          />
 
           <Controller
             control={control}
@@ -117,6 +131,7 @@ function Home() {
                 value={selectedDate}
                 onChange={(date) => {
                   formatSavedDates(date);
+                  formatDatesUser(date);
                   field.onChange(date);
                 }}
                 format="YYYY-MM-DD"
