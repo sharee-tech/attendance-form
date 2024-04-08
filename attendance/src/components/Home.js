@@ -80,40 +80,46 @@ function Home() {
 
   return (
     <>
-      <Header />
-      <h1>Choir Attendance</h1>
-      <form onSubmit={handleSubmit(onSubmit)} autocomplete="off">
-        <Controller
-          control={control}
-          name="selectedName"
-          rules={{ required: true }}
-          autocomplete="off"
-          render={({ field }) => (
-            <Autocomplete
-              onChange={(event, newValue) => {
-                field.onChange(newValue);
-                setSelectedName(newValue);
-              }}
-              value={selectedName}
-              disablePortal
-              id="combo-box-demo"
-              options={sortedOptions}
-              sx={{ width: 300, margin: "30px auto" }}
-              autocomplete="off"
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Select Your Name"
-                  autocomplete="off"
-                />
-              )}
-            />
-          )}
-        />
-        {errors.selectedName && <span>Please select your name.</span>}
-
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        autocomplete="off"
+        className="form-home"
+      >
+        <h1>Choir Attendance</h1>
+        <div className="dropdown">
+          <Controller
+            control={control}
+            name="selectedName"
+            rules={{ required: true }}
+            autocomplete="off"
+            className="dropdown"
+            render={({ field }) => (
+              <Autocomplete
+                onChange={(event, newValue) => {
+                  field.onChange(newValue);
+                  setSelectedName(newValue);
+                }}
+                value={selectedName}
+                disablePortal
+                id="combo-box-demo"
+                options={sortedOptions}
+                sx={{ width: 300, margin: "30px auto" }}
+                autocomplete="off"
+                className="dropdown"
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Select Your Name"
+                    autocomplete="off"
+                  />
+                )}
+              />
+            )}
+          />
+          {errors.selectedName && <span>Please select your name.</span>}
+        </div>
+        <p>Indicate which day(s) you will be absent</p>
         <div className="select-dates">
-          <h3>Indicate which day(s) you will be absent</h3>
           <SuccessAlert
             open={open}
             setOpen={setOpen}
@@ -155,14 +161,94 @@ function Home() {
           {errors.date && (
             <span>Please select the day(s) you will be absent from choir.</span>
           )}
-          <button type="submit">Submit</button>
         </div>
+        <button type="submit">Submit</button>
       </form>
-      <footer>
-        <Copyright />
-      </footer>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        autocomplete="off"
+        className="form-home"
+      >
+        <h1>Choir Attendance</h1>
+        <div className="dropdown">
+          <Controller
+            control={control}
+            name="selectedName"
+            rules={{ required: true }}
+            autocomplete="off"
+            className="dropdown"
+            render={({ field }) => (
+              <Autocomplete
+                onChange={(event, newValue) => {
+                  field.onChange(newValue);
+                  setSelectedName(newValue);
+                }}
+                value={selectedName}
+                disablePortal
+                id="combo-box-demo"
+                options={sortedOptions}
+                sx={{ width: 300, margin: "30px auto" }}
+                autocomplete="off"
+                className="dropdown"
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Select Your Name"
+                    autocomplete="off"
+                  />
+                )}
+              />
+            )}
+          />
+          {errors.selectedName && <span>Please select your name.</span>}
+        </div>
+        <p>Indicate which day(s) you will be absent</p>
+        <div className="select-dates">
+          <SuccessAlert
+            open={open}
+            setOpen={setOpen}
+            mode={"dates"}
+            dates={userDates}
+          />
+
+          <Controller
+            control={control}
+            name="date"
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Calendar
+                multiple
+                value={selectedDate}
+                onChange={(date) => {
+                  formatSavedDates(date);
+                  formatDatesUser(date);
+                  field.onChange(date);
+                }}
+                format="YYYY-MM-DD"
+                monthYearSeparator="|"
+                mapDays={({ date }) => {
+                  let notselectable = [1, 2, 4, 5, 6].includes(
+                    date.weekDay.index
+                  );
+
+                  if (notselectable)
+                    return {
+                      disabled: true,
+                      style: { color: "#ccc" },
+                      onClick: () =>
+                        alert("You must select a Sunday or a Wednesday"),
+                    };
+                }}
+              />
+            )}
+          />
+          {errors.date && (
+            <span>Please select the day(s) you will be absent from choir.</span>
+          )}
+        </div>
+        <button type="submit">Submit</button>
+      </form>
     </>
   );
 }
-
 export default Home;

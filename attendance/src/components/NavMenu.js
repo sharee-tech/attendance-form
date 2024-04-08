@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
+import { NavLink } from "react-router-dom";
 
 const NavMenu = () => {
   const { auth, signOut } = useAuth();
@@ -18,44 +19,66 @@ const NavMenu = () => {
     <nav className="nav-menu">
       <div className="container">
         <div className="nav-menu-left">
-          <Link to="/" className="nav-menu-brand">
-            HOME
-          </Link>
-          {!auth && (
-            <div className="nav-item">
-              <Link to="/login" className="nav-link">
-                Login
-              </Link>
-            </div>
-          )}
-          {!auth && (
-            <div className="nav-item">
-              <Link to="/signup" className="nav-link">
-                Register
-              </Link>
-            </div>
-          )}
-          {auth && (
-            <div className="nav-item">
-              <Link to="/admin" className="nav-link">
-                Absences
-              </Link>
-            </div>
-          )}
-          {auth && (
-            <div className="nav-item">
-              <Link to="roster" className="nav-link">
-                Roster
-              </Link>
-            </div>
-          )}
+          <div className="nav-item">
+            <NavLink to="/" className="nav-link">
+              Home
+            </NavLink>
+          </div>
         </div>
-        <div className="nav-menu-collapse">
+        <div className="nav-menu-right">
+          {/* {!auth && (
+            <div className="nav-item">
+              <NavLink to="/login" className="nav-link">
+                Login
+              </NavLink>
+            </div>
+          )}
+          {!auth && (
+            <div className="nav-item">
+              <NavLink to="/signup" className="nav-link">
+                Register
+              </NavLink>
+            </div>
+          )} */}
           {auth && (
             <div className="nav-item">
-              <button onClick={handleLogout} className="nav-link logout-btn">
+              <NavLink to="/admin" className="nav-link">
+                Absences
+              </NavLink>
+            </div>
+          )}
+          {auth && (
+            <div className="nav-item">
+              <NavLink to="roster" className="nav-link">
+                Roster
+              </NavLink>
+            </div>
+          )}
+          {/* {auth && (
+            <div className="nav-item">
+              <button onClick={handleLogout} className="logout-btn">
                 LogOut
               </button>
+            </div>
+          )} */}
+          {auth && (
+            <div className="nav-item dropdown">
+              <span className="dropbtn">⚙️</span>
+              <div class="dropdown-content">
+                <a href="/admin">Account</a>
+                <a href="#" onClick={handleLogout}>
+                  LogOut
+                </a>
+              </div>
+            </div>
+          )}
+          {!auth && (
+            <div className="nav-item dropdown">
+              <span className="dropbtn">⚙️</span>
+              <div class="dropdown-content">
+                <a href="/signup">Register</a>
+                <a href="/login">Login</a>
+              </div>
             </div>
           )}
         </div>

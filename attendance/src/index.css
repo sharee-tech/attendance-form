@@ -5,21 +5,23 @@
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  color: #a6282e;
-  font-family: "Roboto";
-  text-align: center;
+  /* color: #a6282e; */
+  font-family: "Montserrat";
 }
 
-header {
+.page-container {
+  /* font-family: "Montserrat"; */
+}
+/* ------------ General Styling ------------- */
+
+/* header {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
-}
+} */
 
 h1 {
-  margin: 10px 0;
+  /* margin: 10px 0; */
   color: #a6282e;
 }
 
@@ -28,6 +30,7 @@ h2 {
   font-weight: 700;
   margin: 10px 0;
   color: #303030;
+  /* font-family: "Montserrat"; */
 }
 
 h3 {
@@ -35,13 +38,23 @@ h3 {
   color: #303030;
 }
 
-.add-member-heading {
-  margin-top: 40px;
-}
 ul li {
   padding: 0.4rem;
   text-align: left;
 }
+
+button {
+  background-color: #a6282e;
+  border: none;
+  padding: 0.8rem 2.4rem;
+  font-family: "Roboto";
+  border-radius: 4px;
+  color: white;
+  width: fit-content;
+  cursor: pointer;
+}
+
+/* -------------- Home Component -------------- */
 
 .select-dates {
   display: flex;
@@ -51,7 +64,58 @@ ul li {
   align-items: center;
 }
 
-/* ---------------- add member form ----------------- */
+.form-home {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rmdp-wrapper.rmdp-shadow {
+  box-shadow: 0 0 0 white !important;
+}
+
+.rmdp-wrapper {
+  z-index: 1 !important;
+}
+.rmdp-arrow {
+  border: solid #a6282e !important;
+  border-width: 0 2px 2px 0 !important;
+}
+
+.rmdp-arrow-container:hover {
+  background-color: #a0a0a0 !important;
+}
+
+.rmdp-week-day {
+  color: #a6282e !important;
+}
+
+.rmdp-day.rmdp-today span {
+  background-color: #fff !important;
+  color: black !important;
+  border-radius: 50% !important;
+  border: 1px solid #a6282e !important;
+}
+
+.rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: #a6282e !important;
+}
+
+/*https://stackoverflow.com/questions/23885255/how-to-remove-ignore-hover-css-style-on-touch-devices*/
+@media (hover: hover) and (pointer: fine) {
+  .rmdp-day.rmdp-today span:hover {
+    border: none !important;
+  }
+  .rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
+    background-color: #c8c8c8 !important;
+    color: #fff;
+  }
+  span.sd:hover {
+    color: #fff !important;
+  }
+}
+
+/* -------------- Roster Component -------------- */
 .add-member-form {
   display: flex;
   flex-direction: column;
@@ -103,6 +167,8 @@ ul li {
   align-items: center;
 }
 
+/* ---------- RosterTable Component ----------- */
+
 .mui-table {
   min-width: 600px;
 }
@@ -113,42 +179,7 @@ ul li {
   }
 }
 
-.member-table {
-  border-collapse: collapse;
-  margin-top: 5em;
-}
-
-.member-table td,
-.member-table th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-.member-table tbody tr td:nth-child(1) {
-  text-align: center;
-  width: 50px;
-}
-
-.member-table tbody tr td:not(:first-child) {
-  width: 150px;
-}
-
-.member-table tr:hover {
-  background-color: darkgray;
-}
-
-.member-table tr {
-  text-align: left;
-}
-
-.member-table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center;
-  background-color: #a6282e;
-  color: white;
-}
-
+/* ------------ Absences Component ------------- */
 .absences-list {
   display: flex;
   flex-direction: column;
@@ -179,45 +210,8 @@ p.link {
 .clear-all {
   margin: 3em 0;
 }
-button {
-  background-color: #a6282e;
-  border: none;
-  padding: 0.8rem 2.4rem;
-  font-family: "Roboto";
-  border-radius: 4px;
-  color: white;
-  width: fit-content;
-  cursor: pointer;
-}
 
-.rmdp-wrapper {
-  z-index: 1 !important;
-}
-.rmdp-arrow {
-  border: solid #a6282e !important;
-  border-width: 0 2px 2px 0 !important;
-}
-
-.rmdp-arrow-container:hover {
-  background-color: #a0a0a0 !important;
-}
-
-.rmdp-week-day {
-  color: #a6282e !important;
-}
-
-.rmdp-day.rmdp-today span {
-  background-color: #fff !important;
-  color: black !important;
-  border-radius: 50% !important;
-  border: 1px solid #a6282e !important;
-}
-
-.rmdp-day.rmdp-selected span:not(.highlight) {
-  background-color: #a6282e !important;
-}
-
-/* ---------------------- Signup Page Styling --------------------- */
+/* ----------- Auth Components ----------- */
 .card {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -227,13 +221,11 @@ button {
   margin-top: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-h2 {
+.card h2 {
   text-align: center;
   margin-bottom: 20px;
 }
-form {
-  margin-top: 20px;
-}
+
 label {
   display: block;
   margin-bottom: 5px;
@@ -273,94 +265,63 @@ input[type="password"] {
   width: 50%;
 }
 
-/* ------------------------ Nav Menu ----------------------  */
-
+/* -------------- Nav Menu --------------  */
 .nav-menu {
-  background-color: #343a40;
-  padding: 1rem;
+  position: sticky; /* Add position: sticky */
+  top: 0; /* Stick to the top */
+  background-color: white; /* Ensure background color is applied */
+  z-index: 10; /* Ensure the header stays above other content */
 }
 
 .container {
+  padding: 1rem;
   display: flex;
-
   justify-content: space-between;
   align-items: center;
+  max-height: 60px;
+  box-shadow: 0 4px 2px -2px lightgrey;
 }
 
 .nav-menu-left {
   display: flex;
   align-items: center;
   gap: 20px;
+  overflow: hidden;
 }
 
 .nav-menu-brand {
-  color: #fff;
+  color: black;
   font-size: 1.5rem;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
-/* .nav-menu-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.nav-menu-toggle-icon {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background-color: #fff;
-  position: relative;
-}
-
-.nav-menu-toggle-icon::before,
-.nav-menu-toggle-icon::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  position: absolute;
-  transition: transform 0.2s ease;
-}
-
-.nav-menu-toggle-icon::before {
-  top: -8px;
-}
-
-.nav-menu-toggle-icon::after {
-  bottom: -8px;
-}
-
-.nav-menu-toggle.open .nav-menu-toggle-icon::before {
-  transform: rotate(45deg);
-  top: 0;
-}
-
-.nav-menu-toggle.open .nav-menu-toggle-icon::after {
-  transform: rotate(-45deg);
-  bottom: 0;
-} */
-
-.nav-menu-collapse {
+.nav-menu-right {
   display: flex;
-}
-
-.nav-menu-nav {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  align-items: center;
+  gap: 20px;
+  overflow: hidden;
 }
 
 .nav-item {
   margin-left: 1rem;
+  border-bottom: 2px solid transparent;
 }
 
 .nav-link {
-  color: #fff;
+  color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.nav-link:hover {
+  /* box-shadow: 0 4px 2px -2px #a6282e; */
+  border-bottom: 2px solid #a6282e;
+}
+
+.nav-link.active {
+  /* box-shadow: 0 4px 2px -2px #a6282e; */
+  border-bottom: 2px solid #a6282e;
 }
 
 .logout-btn {
@@ -370,16 +331,103 @@ input[type="password"] {
   cursor: pointer;
 }
 
-/*https://stackoverflow.com/questions/23885255/how-to-remove-ignore-hover-css-style-on-touch-devices*/
-@media (hover: hover) and (pointer: fine) {
-  .rmdp-day.rmdp-today span:hover {
-    border: none !important;
-  }
-  .rmdp-day:not(.rmdp-disabled, .rmdp-day-hidden) span:hover {
-    background-color: #c8c8c8 !important;
-    color: #fff;
-  }
-  span.sd:hover {
-    color: #fff !important;
-  }
+.dropbtn {
+  cursor: pointer;
 }
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+  /* position: relative;
+  display: inline-block; */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  /* float: none; */
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  /* text-align: left; */
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* .nav-menu-collapse {
+  display: flex;
+} */
+
+/* .nav-menu-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+} */
+
+/* ------------- Copyright Component -------------- */
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #a6282e;
+  min-height: 50px;
+  text-align: center;
+  z-index: 10;
+}
+
+/* ---------------- Members Component ----------------- */
+/* .member-table {
+  border-collapse: collapse;
+  margin-top: 5em;
+}
+
+.member-table td,
+.member-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.member-table tbody tr td:nth-child(1) {
+  text-align: center;
+  width: 50px;
+}
+
+.member-table tbody tr td:not(:first-child) {
+  width: 150px;
+}
+
+.member-table tr:hover {
+  background-color: darkgray;
+}
+
+.member-table tr {
+  text-align: left;
+}
+
+.member-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #a6282e;
+  color: white;
+} */
