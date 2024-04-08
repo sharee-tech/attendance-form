@@ -49,14 +49,12 @@ export default function Roster() {
   } = useForm();
 
   return (
-    <>
-      <Header />
+    <div className="roster-container">
       <h1>Roster</h1>
       <RosterTable memberData={members} setMemberData={setMembers} />
       <SuccessAlert open={open} setOpen={setOpen} mode={"add"} />
       <h3 className="add-member-heading">Add a new member</h3>
-      <hr style={{ maxWidth: "250px", margin: "auto" }}></hr>
-
+      <hr></hr>
       <form onSubmit={handleSubmit} className="add-member-form">
         <div className="add-member-text-group">
           <div className="add-member-field-group">
@@ -121,6 +119,6 @@ export default function Roster() {
 
         <button type="submit">Submit</button>
       </form>
-    </>
+    </div>
   );
 }

@@ -7,6 +7,7 @@
 body {
   /* color: #a6282e; */
   font-family: "Montserrat";
+  padding-bottom: 100px;
 }
 
 .page-container {
@@ -34,7 +35,7 @@ h2 {
 }
 
 h3 {
-  margin: 10px 0;
+  margin: 20px 0;
   color: #303030;
 }
 
@@ -52,6 +53,16 @@ button {
   color: white;
   width: fit-content;
   cursor: pointer;
+}
+
+hr {
+  border: 0;
+  clear: both;
+  display: block;
+  width: 250px;
+  background-color: #c8c8c8;
+  height: 1px;
+  margin: auto;
 }
 
 /* -------------- Home Component -------------- */
@@ -116,6 +127,13 @@ button {
 }
 
 /* -------------- Roster Component -------------- */
+.roster-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .add-member-form {
   display: flex;
   flex-direction: column;
@@ -180,6 +198,13 @@ button {
 }
 
 /* ------------ Absences Component ------------- */
+.absences-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .absences-list {
   display: flex;
   flex-direction: column;
@@ -296,11 +321,32 @@ input[type="password"] {
   text-transform: uppercase;
 }
 
-.nav-menu-right {
+.nav-menu-right,
+.nav-list {
   display: flex;
   align-items: center;
   gap: 20px;
   overflow: hidden;
+}
+
+#myLinks {
+  display: none;
+}
+
+.icon-open {
+  color: black;
+}
+.icon-open:hover {
+  color: #a6282e;
+  cursor: pointer;
+}
+
+.icon-close {
+  color: black;
+}
+.icon-close:hover {
+  color: #a6282e;
+  cursor: pointer;
 }
 
 .nav-item {
@@ -308,19 +354,20 @@ input[type="password"] {
   border-bottom: 2px solid transparent;
 }
 
-.nav-link {
+.nav-link,
+.nav-logo {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
 
-.nav-link:hover {
-  /* box-shadow: 0 4px 2px -2px #a6282e; */
+.nav-link:hover,
+.nav-logo:hover {
   border-bottom: 2px solid #a6282e;
 }
 
-.nav-link.active {
-  /* box-shadow: 0 4px 2px -2px #a6282e; */
+.nav-link.active,
+.nav-logo:active {
   border-bottom: 2px solid #a6282e;
 }
 
@@ -338,8 +385,6 @@ input[type="password"] {
 .dropdown {
   float: left;
   overflow: hidden;
-  /* position: relative;
-  display: inline-block; */
 }
 
 .dropdown-content {
@@ -369,16 +414,71 @@ input[type="password"] {
   display: block;
 }
 
-/* .nav-menu-collapse {
-  display: flex;
-} */
+.show-menu {
+  right: 0;
+}
 
-/* .nav-menu-nav {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-} */
+.show-mobile {
+  display: none;
+}
+
+.hide-mobile {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-list {
+    position: fixed;
+    top: 50px;
+    right: 0;
+    background-color: #a6282e;
+    width: 100%;
+    height: auto;
+    padding: 2rem;
+    transition: right 0.4s;
+    align-items: end;
+    box-shadow: 0 4px 2px -2px lightgrey;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    column-gap: 2.5rem;
+  }
+  .nav-link {
+    color: white;
+  }
+
+  .nav-link:hover {
+    color: black;
+  }
+
+  .show-menu {
+    display: none;
+  }
+
+  .show-mobile {
+    display: block;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .icon-open {
+    display: none;
+  }
+
+  .icon-close {
+    display: none;
+  }
+
+  .nav-list {
+    flex-direction: row;
+    column-gap: 2.5rem;
+  }
+}
 
 /* ------------- Copyright Component -------------- */
 footer {
