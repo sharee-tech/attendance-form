@@ -24,7 +24,7 @@ export default function Login() {
         error,
       } = await login(emailRef.current.value, passwordRef.current.value);
       if (error) setErrorMsg(error.message);
-      if (user && session) navigate("/admin");
+      if (user && session) navigate("/absences");
     } catch (error) {
       setErrorMsg("Email or Password Incorrect");
     }

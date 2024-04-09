@@ -12,6 +12,8 @@ import NavMenu from "./components/NavMenu";
 import PasswordReset from "./components/PasswordReset";
 import UpdatePassword from "./components/UpdatePassword";
 import Copyright from "./components/Copyright";
+import ProtectedRouteAdmin from "./components/ProtectedRouteAdmin";
+import ProtectedRouteUser from "./components/ProtectedRouteUser";
 
 function App() {
   return (

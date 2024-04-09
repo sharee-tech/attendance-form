@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Copyright from "./Copyright";
 import { Controller, useForm } from "react-hook-form";
 import { Calendar } from "react-multi-date-picker";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import Header from "./Header";
 import { supabase } from "../config/supabaseClient";
 import SuccessAlert from "./Success";
 

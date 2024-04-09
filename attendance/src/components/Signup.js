@@ -80,18 +80,26 @@ export default function Signup() {
             />
           </div>
           {errorMsg && (
-            <div className="alert alert-danger" role="alert">
+            <div
+              className="alert alert-danger"
+              role="alert"
+              onClick={() => setErrorMsg("")}
+            >
               {errorMsg}
             </div>
           )}
           {msg && (
-            <div className="alert alert-success" role="alert">
+            <div
+              className="alert alert-success"
+              role="alert"
+              onClick={() => setMsg("")}
+            >
               {msg}
             </div>
           )}
 
           <div className="text-center mt-2">
-            <button disabled={false} type="submit" className="w-50">
+            <button disabled={loading} type="submit" className="w-50">
               Register
             </button>
           </div>
