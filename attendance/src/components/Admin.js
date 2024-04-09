@@ -9,7 +9,7 @@ export default function Admin() {
   return (
     <>
       {/* <div>You are logged in and your email address is {user.email}</div> */}
-      <Header />
+
       <Absences />
     </>
   );

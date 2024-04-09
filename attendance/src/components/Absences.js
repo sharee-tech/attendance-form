@@ -69,7 +69,7 @@ export default function Absences() {
   };
 
   return (
-    <>
+    <div className="absences-container">
       <h1>Absences</h1>
       <div className="absences">
         {Object.entries(groupedItems).map(([yearMonth, items]) => (
@@ -89,7 +89,7 @@ export default function Absences() {
       >
         Clear All Absences (end of year)
       </button>
-    </>
+    </div>
   );
 }
 
