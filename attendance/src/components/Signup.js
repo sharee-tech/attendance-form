@@ -45,10 +45,22 @@ export default function Signup() {
         setMsg(
           "Registration Successful. Check your email to confirm your account"
         );
+        // setTimeout(() => {
+        //   setMsg("");
+        //   emailRef.current.value = "";
+        //   passwordRef.current.value = "";
+        //   confirmPasswordRef.current.value = "";
+        // }, 5000);
       }
     } catch (error) {
       setErrorMsg("Error in Creating Account");
     }
+    // setTimeout(() => {
+    //   setMsg("");
+    //   emailRef.current.value = "";
+    //   passwordRef.current.value = "";
+    //   confirmPasswordRef.current.value = "";
+    // }, 5000);
     setLoading(false);
   }
 
@@ -91,7 +103,7 @@ export default function Signup() {
           )}
 
           <div className="text-center mt-2">
-            <button disabled={false} type="submit" className="w-50">
+            <button disabled={loading} type="submit" className="w-50">
               Register
             </button>
           </div>
