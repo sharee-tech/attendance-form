@@ -11,17 +11,31 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
 
   async function register(email, password) {
-    const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        emailRedirectTo: "http://localhost:3000/login",
-      },
-    });
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          emailRedirectTo: "http://localhost:3000/login",
+        },
+      });
+      return { data, error };
+    } catch (error) {
+      throw error;
+    }
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const password = passwordRef.current.value;
+    if (
+      password.length < 6 ||
+      !emailRef.current?.value ||
+      !confirmPasswordRef.current?.value
+    ) {
+      setErrorMsg("Password must be at least 6 characters long");
+      return;
+    }
     if (
       !passwordRef.current?.value ||
       !emailRef.current?.value ||
@@ -41,15 +55,19 @@ export default function Signup() {
         emailRef.current.value,
         passwordRef.current.value
       );
-      if (!error && data) {
-        setMsg(
-          "Registration Successful. Check your email to confirm your account"
-        );
+      if (error) {
+        throw error;
       }
+      setMsg(
+        // "Registration Successful. Check your email to confirm your account"
+        "Registration Successful!"
+      );
     } catch (error) {
+      console.error("Error in Creating Account:", error);
       setErrorMsg("Error in Creating Account");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   return (
@@ -80,20 +98,12 @@ export default function Signup() {
             />
           </div>
           {errorMsg && (
-            <div
-              className="alert alert-danger"
-              role="alert"
-              onClick={() => setErrorMsg("")}
-            >
+            <div className="alert alert-danger" role="alert">
               {errorMsg}
             </div>
           )}
           {msg && (
-            <div
-              className="alert alert-success"
-              role="alert"
-              onClick={() => setMsg("")}
-            >
+            <div className="alert alert-success" role="alert">
               {msg}
             </div>
           )}
