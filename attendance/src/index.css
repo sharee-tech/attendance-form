@@ -10,9 +10,6 @@ body {
   padding-bottom: 100px;
 }
 
-.page-container {
-  /* font-family: "Montserrat"; */
-}
 /* ------------ General Styling ------------- */
 
 /* header {
@@ -66,6 +63,10 @@ hr {
 }
 
 /* -------------- Home Component -------------- */
+.span-alert {
+  color: #a6282e;
+  padding: 10px 0;
+}
 
 .select-dates {
   display: flex;

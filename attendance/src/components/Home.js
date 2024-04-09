@@ -86,13 +86,13 @@ function Home() {
         className="form-home"
       >
         <h1>Choir Attendance</h1>
-        <div className="dropdown">
+        <div className="name-select">
           <Controller
             control={control}
             name="selectedName"
             rules={{ required: true }}
             autocomplete="off"
-            className="dropdown"
+            className="name-select"
             render={({ field }) => (
               <Autocomplete
                 onChange={(event, newValue) => {
@@ -105,7 +105,7 @@ function Home() {
                 options={sortedOptions}
                 sx={{ width: 300, margin: "30px auto" }}
                 autocomplete="off"
-                className="dropdown"
+                className="name-select"
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -116,8 +116,10 @@ function Home() {
               />
             )}
           />
-          {errors.selectedName && <span>Please select your name.</span>}
         </div>
+        {errors.selectedName && (
+          <span className="span-alert">Please select your name.</span>
+        )}
         <p>Indicate which day(s) you will be absent</p>
         <div className="select-dates">
           <SuccessAlert
@@ -159,7 +161,9 @@ function Home() {
             )}
           />
           {errors.date && (
-            <span>Please select the day(s) you will be absent from choir.</span>
+            <span className="span-alert">
+              Please select the day(s) you will be absent from choir.
+            </span>
           )}
         </div>
         <button type="submit">Submit</button>

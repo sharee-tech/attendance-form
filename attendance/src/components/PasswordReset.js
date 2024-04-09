@@ -56,6 +56,7 @@ const PasswordReset = () => {
                 disabled={loading}
                 type="submit"
                 className="btn btn-primary w-50"
+                style={{ padding: ".8rem .5rem" }}
               >
                 Send Reset Link
               </button>

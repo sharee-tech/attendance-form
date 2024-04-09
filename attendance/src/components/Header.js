@@ -18,14 +18,7 @@ export default function Header() {
               </>
             );
           case "/":
-            // return <img src="../favicon.png" alt="icon" width="24px" />;
             return <span></span>;
-          // return (
-          // <NavLink to="/admin" className="link">
-          //   ADMIN
-          // </NavLink>
-          // );
-
           case "/members":
             return (
               <>
@@ -71,15 +64,6 @@ export default function Header() {
             );
         }
       })()}
-      {/* {path.pathname !== "/" ? (
-        <NavLink to="/" className="nav">
-          HOME
-        </NavLink>
-      ) : (
-        <NavLink to="/admin" className="nav">
-          ADMIN
-        </NavLink>
-      )} */}
     </header>
   );
 }
