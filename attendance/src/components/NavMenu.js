@@ -80,11 +80,11 @@ const NavMenu = () => {
               </div>
             )}
             {auth && (
-              <div className="nav-item">
+              <div className={`nav-item ${showOnMobile ? "" : "show-mobile"}`}>
                 <NavLink
                   to="/admin"
-                  // className="nav-link"
-                  className={`nav-link ${showOnMobile ? "" : "show-mobile"}`}
+                  className="nav-link"
+                  // className={`nav-link ${showOnMobile ? "" : "show-mobile"}`}
                   onClick={closeMenuOnMobile}
                 >
                   Account
@@ -92,11 +92,11 @@ const NavMenu = () => {
               </div>
             )}
             {auth && (
-              <div className="nav-item">
+              <div className={`nav-item ${showOnMobile ? "" : "show-mobile"}`}>
                 <NavLink
                   to="/login"
-                  // className="nav-link"
-                  className={`nav-link ${showOnMobile ? "" : "show-mobile"}`}
+                  className="nav-link"
+                  // className={`nav-link ${showOnMobile ? "" : "show-mobile"}`}
                   onClick={closeMenuOnMobile}
                 >
                   Logout
@@ -139,7 +139,7 @@ const NavMenu = () => {
               >
                 <span className="dropbtn">⚙️</span>
                 <div class="dropdown-content">
-                  <a href="/signup">Register</a>
+                  {/* <a href="/signup">Register</a> */}
                   <a href="/login">Login</a>
                 </div>
               </div>

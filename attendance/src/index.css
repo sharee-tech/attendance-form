@@ -367,7 +367,7 @@ input[type="password"] {
 }
 
 .nav-link.active,
-.nav-logo:active {
+.nav-logo.active {
   border-bottom: 2px solid #a6282e;
 }
 
@@ -391,23 +391,26 @@ input[type="password"] {
   display: none;
   position: absolute;
   right: 0;
-  background-color: #f9f9f9;
-  min-width: 160px;
+  /* background-color: #f9f9f9; */
+  background-color: #a6282e;
+  min-width: 200px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
 .dropdown-content a {
   /* float: none; */
-  color: black;
+  /* color: black; */
+  color: white;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
-  /* text-align: left; */
+  text-align: right;
 }
 
 .dropdown-content a:hover {
-  background-color: #ddd;
+  /* background-color: darkgray; */
+  color: black;
 }
 
 .dropdown:hover .dropdown-content {
@@ -432,7 +435,7 @@ input[type="password"] {
     top: 50px;
     right: 0;
     background-color: #a6282e;
-    width: 100%;
+    width: 40%;
     height: auto;
     padding: 2rem;
     transition: right 0.4s;
