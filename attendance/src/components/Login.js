@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export default function Login() {
   const emailRef = useRef();
@@ -9,6 +10,16 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
+  const [captchaToken, setCaptchaToken] = useState();
+
+  const captcha = useRef();
+
+  // const login = (email, password) =>
+  //   supabase.auth.signInWithPassword({
+  //     email,
+  //     password,
+  //     // options: { captchaToken },
+  //   });
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -58,6 +69,13 @@ export default function Login() {
             <button disabled={false} type="submit" className="w-50">
               Login
             </button>
+            <HCaptcha
+              ref={captcha}
+              sitekey={process.env.REACT_APP_HCAPTCHA_SITEKEY}
+              onVerify={(token) => {
+                setCaptchaToken(token);
+              }}
+            />
           </div>
         </form>
       </div>

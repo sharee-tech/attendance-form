@@ -3,13 +3,18 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "../config/supabaseClient";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const AuthContext = createContext({});
 
 export const useAuth = () => useContext(AuthContext);
 
 const login = (email, password) =>
-  supabase.auth.signInWithPassword({ email, password });
+  supabase.auth.signInWithPassword({
+    email,
+    password,
+    options: { captchaToken },
+  });
 
 const signOut = () => supabase.auth.signOut();
 
@@ -25,6 +30,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
+  // const [captchaToken, setCaptchaToken] = useState();
 
   useEffect(() => {
     setLoading(true);

@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../config/supabaseClient";
-import HCaptcha from "@hcaptcha/react-hcaptcha";
+// import HCaptcha from "@hcaptcha/react-hcaptcha";
+import Hcaptcha from "./HCaptcha";
 
 export default function Signup() {
   const emailRef = useRef(null);
@@ -10,9 +11,9 @@ export default function Signup() {
   const [errorMsg, setErrorMsg] = useState("");
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState();
+  // const [captchaToken, setCaptchaToken] = useState();
 
-  const captcha = useRef();
+  // const captcha = useRef();
 
   async function register(email, password) {
     try {
