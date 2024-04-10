@@ -31,10 +31,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/password-reset" element={<PasswordReset />} />
           <Route path="/update-password" element={<UpdatePassword />} />
-          <Route
-            path="/signup-thisisthesongthatneverends"
-            element={<Signup />}
-          />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
       <Copyright />

@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../config/supabaseClient";
-import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export default function Signup() {
   const emailRef = useRef(null);
@@ -10,9 +9,6 @@ export default function Signup() {
   const [errorMsg, setErrorMsg] = useState("");
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState();
-
-  const captcha = useRef();
 
   async function register(email, password) {
     try {
@@ -20,7 +16,6 @@ export default function Signup() {
         email: email,
         password: password,
         options: {
-          captchaToken,
           emailRedirectTo: "http://localhost:3000/login",
         },
       });
@@ -73,7 +68,6 @@ export default function Signup() {
     } finally {
       setLoading(false);
     }
-    captcha.current.resetCaptcha();
   }
 
   return (
@@ -118,13 +112,6 @@ export default function Signup() {
             <button disabled={loading} type="submit" className="w-50">
               Register
             </button>
-            <HCaptcha
-              ref={captcha}
-              sitekey={process.env.REACT_APP_HCAPTCHA_SITEKEY}
-              onVerify={(token) => {
-                setCaptchaToken(token);
-              }}
-            />
           </div>
         </form>
       </div>
