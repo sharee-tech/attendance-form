@@ -61,9 +61,9 @@ export default function Login() {
           </div>
         </form>
       </div>
-      <div className="w-100 text-center mt-2">
+      {/* <div className="w-100 text-center mt-2">
         Don't have an account? <Link to="/signup">Sign Up</Link>
-      </div>
+      </div> */}
       <div className="w-100 text-center mt-2">
         Forgot Password? <Link to={"/password-reset"}>Click Here</Link>
       </div>
