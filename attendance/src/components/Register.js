@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../config/supabaseClient";
 
-export default function Signup() {
+export default function Register() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const confirmPasswordRef = useRef(null);
@@ -62,6 +62,9 @@ export default function Signup() {
         // "Registration Successful. Check your email to confirm your account"
         "Registration Successful!"
       );
+      emailRef.current.value = "";
+      passwordRef.current.value = "";
+      confirmPasswordRef.current.value = "";
     } catch (error) {
       console.error("Error in Creating Account:", error);
       setErrorMsg("Error in Creating Account");
@@ -72,53 +75,51 @@ export default function Signup() {
 
   return (
     <>
-      <div className="page-container">
-        <div className="card">
-          <h2>Register for an account</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="input-email">Email</label>
-              <input id="input-email" type="email" ref={emailRef} required />
+      <div className="card">
+        <h2>Register for an account</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="input-email">Email</label>
+            <input id="input-email" type="email" ref={emailRef} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="input-password">Password</label>
+            <input
+              id="input-password"
+              type="password"
+              ref={passwordRef}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confirm-password">Confirm Password</label>
+            <input
+              id="confirm-password"
+              type="password"
+              ref={confirmPasswordRef}
+              required
+            />
+          </div>
+          {errorMsg && (
+            <div className="alert alert-danger" role="alert">
+              {errorMsg}
             </div>
-            <div className="form-group">
-              <label htmlFor="input-password">Password</label>
-              <input
-                id="input-password"
-                type="password"
-                ref={passwordRef}
-                required
-              />
+          )}
+          {msg && (
+            <div className="alert alert-success" role="alert">
+              {msg}
             </div>
-            <div className="form-group">
-              <label htmlFor="confirm-password">Confirm Password</label>
-              <input
-                id="confirm-password"
-                type="password"
-                ref={confirmPasswordRef}
-                required
-              />
-            </div>
-            {errorMsg && (
-              <div className="alert alert-danger" role="alert">
-                {errorMsg}
-              </div>
-            )}
-            {msg && (
-              <div className="alert alert-success" role="alert">
-                {msg}
-              </div>
-            )}
+          )}
 
-            <div className="text-center mt-2">
-              <button disabled={loading} type="submit" className="cstm-button">
-                Register
-              </button>
-            </div>
-          </form>
-        </div>
-        <div className="w-100 text-center mt-2">
-          Already have an account? <Link to="/login">Log In</Link>
-        </div>
+          <div className="text-center mt-2">
+            <button disabled={loading} type="submit" className="cstm-button">
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
+      <div className="w-100 text-center mt-2">
+        Already have an account? <Link to="/login">Log In</Link>
       </div>
     </>
   );

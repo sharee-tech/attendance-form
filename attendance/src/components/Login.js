@@ -62,7 +62,7 @@ export default function Login() {
         </form>
       </div>
       <div className="w-100 text-center mt-2">
-        Don't have an account? <Link to="/signup">Sign Up</Link>
+        Don't have an account? <Link to="/register">Sign Up</Link>
       </div>
       <div className="w-100 text-center mt-2">
         Forgot Password? <Link to={"/reset-password"}>Click Here</Link>
