@@ -6,35 +6,37 @@ import Home from "./components/Home";
 import Members from "./components/Members";
 import Absences from "./components/Absences";
 import Roster from "./components/Roster";
-import Signup from "./components/Signup";
+import Signup from "./components/Register";
 import AuthRoute from "./components/AuthRoute";
 import NavMenu from "./components/NavMenu";
-import PasswordReset from "./components/PasswordReset";
+import ResetPassword from "./components/ResetPassword";
 import UpdatePassword from "./components/UpdatePassword";
-import Copyright from "./components/Copyright";
+import Copyright from "./components/Footer";
 import ProtectedRouteAdmin from "./components/ProtectedRouteAdmin";
 import ProtectedRouteUser from "./components/ProtectedRouteUser";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <>
       <NavMenu />
-      <div className="page-content">
+      <div className="page-container">
         <Routes>
           <Route element={<AuthRoute />}>
             <Route path="/admin" element={<Admin />} />
             <Route path="/members" element={<Members />} />
             <Route path="/absences" element={<Absences />} />
             <Route path="/roster" element={<Roster />} />
+            <Route path="/update-password" element={<UpdatePassword />} />
           </Route>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/password-reset" element={<PasswordReset />} />
-          <Route path="/update-password" element={<UpdatePassword />} />
-          {/* <Route path="/signup" element={<Signup />} /> */}
+          <Route path="/reset-password" element={<ResetPassword />} />
+
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
-      <Copyright />
+      <Footer />
     </>
   );
 }

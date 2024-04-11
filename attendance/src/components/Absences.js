@@ -69,7 +69,7 @@ export default function Absences() {
   };
 
   return (
-    <div className="absences-container">
+    <>
       <h1>Absences</h1>
       <div className="absences">
         {Object.entries(groupedItems).map(([yearMonth, items]) => (
@@ -80,7 +80,7 @@ export default function Absences() {
         ))}
       </div>
       <button
-        className="clear-all"
+        className="cstm-button clear-all"
         onClick={() => {
           if (window.confirm("Are you sure?")) {
             deleteAllAbsences();
@@ -89,7 +89,7 @@ export default function Absences() {
       >
         Clear All Absences (end of year)
       </button>
-    </div>
+    </>
   );
 }
 

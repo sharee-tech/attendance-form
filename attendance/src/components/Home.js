@@ -81,7 +81,8 @@ function Home() {
       <form
         onSubmit={handleSubmit(onSubmit)}
         autocomplete="off"
-        className="form-home"
+        // className="form-home"
+        className="page-container"
       >
         <h1>Choir Attendance</h1>
         <div className="name-select">
@@ -164,7 +165,11 @@ function Home() {
             </span>
           )}
         </div>
-        <button type="submit">Submit</button>
+        <div>
+          <button className="cstm-button" type="submit">
+            Submit
+          </button>
+        </div>
       </form>
     </>
   );

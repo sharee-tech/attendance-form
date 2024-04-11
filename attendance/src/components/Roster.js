@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "./Header";
 import { useState } from "react";
 import SuccessAlert from "./Success";
 import RosterTable from "./RosterTable";
@@ -49,7 +48,7 @@ export default function Roster() {
   } = useForm();
 
   return (
-    <div className="roster-container">
+    <>
       <h1>Roster</h1>
       <RosterTable memberData={members} setMemberData={setMembers} />
       <SuccessAlert open={open} setOpen={setOpen} mode={"add"} />
@@ -117,8 +116,10 @@ export default function Roster() {
           )}
         />
 
-        <button type="submit">Submit</button>
+        <button className="cstm-button" type="submit">
+          Submit
+        </button>
       </form>
-    </div>
+    </>
   );
 }

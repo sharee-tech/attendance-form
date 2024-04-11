@@ -7,8 +7,16 @@
 body {
   /* color: #a6282e; */
   font-family: "Montserrat";
-  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* padding-bottom: 100px; */
+  /* min-height: 100vh; */
 }
+
+/* body:first-child {
+  min-height: 100vh;
+} */
 
 /* ------------ General Styling ------------- */
 
@@ -41,14 +49,15 @@ ul li {
   text-align: left;
 }
 
-button {
+.cstm-button {
   background-color: #a6282e;
   border: none;
   padding: 0.8rem;
   font-family: "Roboto";
   border-radius: 4px;
   color: white;
-  width: fit-content;
+  /* width: fit-content; */
+  min-width: 150px;
   cursor: pointer;
 }
 
@@ -62,7 +71,25 @@ hr {
   margin: auto;
 }
 
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a6282e;
+  min-height: 50px;
+  text-align: center;
+  z-index: 10;
+  margin-top: 20px;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
 /* -------------- Home Component -------------- */
+
 .span-alert {
   color: #a6282e;
   padding: 10px 0;
@@ -76,19 +103,23 @@ hr {
   align-items: center;
 }
 
-.form-home {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .rmdp-wrapper.rmdp-shadow {
   box-shadow: 0 0 0 white !important;
+  width: 100% !important;
 }
 
 .rmdp-wrapper {
   z-index: 1 !important;
 }
+.rmdp-calendar {
+  width: 100% !important;
+  margin: 0 10% !important;
+}
+
+.rmdp-calendar div {
+  width: 100% !important;
+}
+
 .rmdp-arrow {
   border: solid #a6282e !important;
   border-width: 0 2px 2px 0 !important;
@@ -128,12 +159,6 @@ hr {
 }
 
 /* -------------- Roster Component -------------- */
-.roster-container {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 .add-member-form {
   display: flex;
@@ -199,12 +224,12 @@ hr {
 }
 
 /* ------------ Absences Component ------------- */
-.absences-container {
+/* .absences-container {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
 .absences-list {
   display: flex;
@@ -287,9 +312,9 @@ input[type="password"] {
 .mt-2 {
   margin-top: 20px;
 }
-.w-50 {
+/* .w-50 {
   width: 50%;
-}
+} */
 
 /* -------------- Nav Menu --------------  */
 .nav-menu {
@@ -297,6 +322,7 @@ input[type="password"] {
   top: 0; /* Stick to the top */
   background-color: white; /* Ensure background color is applied */
   z-index: 10; /* Ensure the header stays above other content */
+  margin-bottom: 30px;
 }
 
 .container {
@@ -485,19 +511,6 @@ input[type="password"] {
 }
 
 /* ------------- Copyright Component -------------- */
-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #a6282e;
-  min-height: 50px;
-  text-align: center;
-  z-index: 10;
-}
 
 /* ---------------- Members Component ----------------- */
 /* .member-table {

@@ -3,8 +3,8 @@ import { useAuth } from "../context/AuthProvider";
 
 import { Link } from "react-router-dom";
 
-const PasswordReset = () => {
-  const { passwordReset } = useAuth();
+const ResetPassword = () => {
+  const { resetPassword } = useAuth();
   const emailRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
@@ -13,7 +13,7 @@ const PasswordReset = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const { data, error } = await passwordReset(emailRef.current.value);
+      const { data, error } = await resetPassword(emailRef.current.value);
       console.log(error);
       console.log(data);
       setMsg("Password reset has been sent to your email");
@@ -27,7 +27,7 @@ const PasswordReset = () => {
     <>
       <div className="card">
         <div className="card-body">
-          <h2 className="text-center mb-4">Reset Password</h2>
+          <h2 className="text-center">Reset Password</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">Email</label>
@@ -55,7 +55,7 @@ const PasswordReset = () => {
               <button
                 disabled={loading}
                 type="submit"
-                className="btn btn-primary w-50"
+                className="cstm-button btn btn-primary w-50"
                 style={{ padding: ".8rem .5rem" }}
               >
                 Send Reset Link
@@ -71,4 +71,4 @@ const PasswordReset = () => {
   );
 };
 
-export default PasswordReset;
+export default ResetPassword;
