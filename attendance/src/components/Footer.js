@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 
-export default function Copyright() {
+export default function Footer() {
   return (
     <footer>
       <Typography variant="body2" color="white">

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Copyright from "./Copyright";
 import { Controller, useForm } from "react-hook-form";
 import { Calendar } from "react-multi-date-picker";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import Header from "./Header";
 import { supabase } from "../config/supabaseClient";
 import SuccessAlert from "./Success";
 
@@ -83,7 +81,8 @@ function Home() {
       <form
         onSubmit={handleSubmit(onSubmit)}
         autocomplete="off"
-        className="form-home"
+        // className="form-home"
+        className="page-container"
       >
         <h1>Choir Attendance</h1>
         <div className="name-select">
@@ -166,7 +165,11 @@ function Home() {
             </span>
           )}
         </div>
-        <button type="submit">Submit</button>
+        <div>
+          <button className="cstm-button" type="submit">
+            Submit
+          </button>
+        </div>
       </form>
     </>
   );

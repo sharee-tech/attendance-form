@@ -1,9 +1,8 @@
 import { useRef, useState } from "react";
-import { Alert, Button, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { supabase } from "../supabase/client";
+import { supabase } from "../config/supabaseClient";
 
-const Register = () => {
+export default function Signup() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const confirmPasswordRef = useRef(null);
@@ -11,11 +10,32 @@ const Register = () => {
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const register = (email, password) =>
-    supabase.auth.signUp({ email, password });
+  async function register(email, password) {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          emailRedirectTo: "http://localhost:3000/login",
+        },
+      });
+      return { data, error };
+    } catch (error) {
+      throw error;
+    }
+  }
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
+    const password = passwordRef.current.value;
+    if (
+      password.length < 6 ||
+      !emailRef.current?.value ||
+      !confirmPasswordRef.current?.value
+    ) {
+      setErrorMsg("Password must be at least 6 characters long");
+      return;
+    }
     if (
       !passwordRef.current?.value ||
       !emailRef.current?.value ||
@@ -25,7 +45,7 @@ const Register = () => {
       return;
     }
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      setErrorMsg("Passwords doesn't match");
+      setErrorMsg("Passwords don't match");
       return;
     }
     try {
@@ -35,62 +55,71 @@ const Register = () => {
         emailRef.current.value,
         passwordRef.current.value
       );
-      if (!error && data) {
-        setMsg(
-          "Registration Successful. Check your email to confirm your account"
-        );
+      if (error) {
+        throw error;
       }
+      setMsg(
+        // "Registration Successful. Check your email to confirm your account"
+        "Registration Successful!"
+      );
     } catch (error) {
+      console.error("Error in Creating Account:", error);
       setErrorMsg("Error in Creating Account");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }
 
   return (
     <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Register</h2>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Form.Group id="confirm-password">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control type="password" ref={confirmPasswordRef} required />
-            </Form.Group>
+      <div className="page-container">
+        <div className="card">
+          <h2>Register for an account</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="input-email">Email</label>
+              <input id="input-email" type="email" ref={emailRef} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="input-password">Password</label>
+              <input
+                id="input-password"
+                type="password"
+                ref={passwordRef}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="confirm-password">Confirm Password</label>
+              <input
+                id="confirm-password"
+                type="password"
+                ref={confirmPasswordRef}
+                required
+              />
+            </div>
             {errorMsg && (
-              <Alert
-                variant="danger"
-                onClose={() => setErrorMsg("")}
-                dismissible
-              >
+              <div className="alert alert-danger" role="alert">
                 {errorMsg}
-              </Alert>
+              </div>
             )}
             {msg && (
-              <Alert variant="success" onClose={() => setMsg("")} dismissible>
+              <div className="alert alert-success" role="alert">
                 {msg}
-              </Alert>
+              </div>
             )}
+
             <div className="text-center mt-2">
-              <Button disabled={loading} type="submit" className="w-50">
+              <button disabled={loading} type="submit" className="cstm-button">
                 Register
-              </Button>
+              </button>
             </div>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Already a User? <Link to={"/login"}>Login</Link>
+          </form>
+        </div>
+        <div className="w-100 text-center mt-2">
+          Already have an account? <Link to="/login">Log In</Link>
+        </div>
       </div>
     </>
   );
-};
-
-export default Register;
+}

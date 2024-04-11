@@ -24,7 +24,7 @@ export default function Login() {
         error,
       } = await login(emailRef.current.value, passwordRef.current.value);
       if (error) setErrorMsg(error.message);
-      if (user && session) navigate("/admin");
+      if (user && session) navigate("/absences");
     } catch (error) {
       setErrorMsg("Email or Password Incorrect");
     }
@@ -55,7 +55,7 @@ export default function Login() {
             </div>
           )}
           <div className="text-center mt-2">
-            <button disabled={false} type="submit" className="w-50">
+            <button disabled={false} type="submit" className="cstm-button">
               Login
             </button>
           </div>
@@ -65,7 +65,7 @@ export default function Login() {
         Don't have an account? <Link to="/signup">Sign Up</Link>
       </div>
       <div className="w-100 text-center mt-2">
-        Forgot Password? <Link to={"/password-reset"}>Click Here</Link>
+        Forgot Password? <Link to={"/reset-password"}>Click Here</Link>
       </div>
     </>
   );

@@ -60,7 +60,7 @@ const NavMenu = () => {
             {auth && (
               <div className="nav-item">
                 <NavLink
-                  to="/admin"
+                  to="/absences"
                   className="nav-link"
                   onClick={closeMenuOnMobile}
                 >
@@ -110,7 +110,7 @@ const NavMenu = () => {
                 >
                   ⚙️
                 </span>
-                <div class="dropdown-content">
+                <div className="dropdown-content">
                   <a href="/admin">Account</a>
                   <a href="#" onClick={handleLogout}>
                     LogOut
@@ -138,7 +138,7 @@ const NavMenu = () => {
                 }`}
               >
                 <span className="dropbtn">⚙️</span>
-                <div class="dropdown-content">
+                <div className="dropdown-content">
                   {/* <a href="/signup">Register</a> */}
                   <a href="/login">Login</a>
                 </div>
