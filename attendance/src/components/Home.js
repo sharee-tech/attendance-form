@@ -7,28 +7,8 @@ import { supabase } from "../config/supabaseClient";
 import SuccessAlert from "./Success";
 import { DevTool } from "@hookform/devtools";
 
-const options = [
-  {
-    id: 1,
-    full_name: "Alex Goering",
-    email: "Alex.Goering@reecenichols.com",
-  },
-  {
-    id: 2,
-    full_name: "Andy Berry",
-    email: "Andyberry59@gmail.com",
-  },
-  {
-    id: 3,
-    full_name: "Anita Tally",
-    email: "anitatally@gmail.com",
-  },
-];
-
 function Home() {
   const [selectedDate, setSelectedDate] = useState([]);
-  // const [selectedName, setSelectedName] = useState(null);
-  // const [value, setValue] = useState(options[0].id);
   const [members, setMembers] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [userDates, setUserDates] = useState([]);
@@ -46,7 +26,7 @@ function Home() {
     const insertData = selectedDate.map((date) => ({
       user_id: null,
       email: data.email,
-      name: data.name.full_name,
+      name: data.user.full_name,
       date: date,
     }));
     try {
@@ -72,8 +52,7 @@ function Home() {
     setValue,
   } = useForm();
 
-  let userObj = watch("name");
-  console.log(userObj);
+  let userObj = watch("user");
 
   useEffect(() => {
     if (userObj) {
@@ -85,11 +64,8 @@ function Home() {
   }, [userObj, setValue]);
 
   const onSubmit = async (data) => {
-    console.log(data);
     await setAbsences(data);
     setOpen(true);
-    // setSelectedDate([]);
-    // setSelectedName("");
     reset(); //Reset the form to re-validate selectedName field
   };
 
@@ -109,10 +85,6 @@ function Home() {
     setUserDates(formattedDates);
   }
 
-  // const sortedOptions = [...members]
-  //   .sort((a, b) => a.first_name.localeCompare(b.first_name))
-  //   .map((member) => `${member.first_name} ${member.last_name}`);
-
   const sortedOptions = [...members]
     .sort((a, b) => a.first_name.localeCompare(b.first_name))
     .map((member) => ({
@@ -123,38 +95,26 @@ function Home() {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        // className="form-home"
-        className="page-container"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="page-container">
         <h1>Choir Attendance</h1>
-        {/* <div>{watch("name")}</div> */}
         <div className="name-select">
           <Controller
-            name="name"
+            name="user"
             control={control}
             render={({ field }) => {
               const { onChange } = field;
               return (
                 <Autocomplete
-                  // value={
-                  //   value
-                  //     ? options.find((option) => {
-                  //         return value === option.full_name;
-                  //       }) ?? null
-                  //     : null
-                  // }
-                  // isOptionEqualToValue={(option, value) =>
-                  //   option.id === value.id
-                  // }
-                  options={options}
-                  sx={{ width: 300, margin: "30px auto" }}
-                  getOptionLabel={(item) =>
-                    item.full_name ? item.full_name : ""
+                  isOptionEqualToValue={(option, value) =>
+                    option.id === value.id
                   }
-                  onChange={(event, item) => {
-                    onChange(item);
+                  options={sortedOptions}
+                  sx={{ width: 300, margin: "30px auto" }}
+                  getOptionLabel={(option) =>
+                    option.full_name ? option.full_name : ""
+                  }
+                  onChange={(event, value) => {
+                    onChange(value);
                   }}
                   renderInput={(params) => (
                     <TextField {...params} label="Select name" />
@@ -164,11 +124,11 @@ function Home() {
             }}
           />
         </div>
-        {errors.selectedName && (
+        {/* {errors.full_name && (
           <span className="span-alert">Please select your name.</span>
-        )}
+        )} */}
 
-        <div /*style={{ display: "hidden" }}*/>
+        <div style={{ display: "none" }}>
           <Controller
             name="email"
             control={control}
