@@ -105,19 +105,19 @@ footer {
 
 .rmdp-wrapper.rmdp-shadow {
   box-shadow: 0 0 0 white !important;
-  width: 100% !important;
+  /* width: 100% !important; */
 }
 
 .rmdp-wrapper {
   z-index: 1 !important;
 }
 .rmdp-calendar {
-  width: 100% !important;
-  margin: 0 10% !important;
+  /* width: 100% !important; */
+  /* margin: 0 10% !important; */
 }
 
 .rmdp-calendar div {
-  width: 100% !important;
+  /* width: 100% !important; */
 }
 
 .rmdp-arrow {

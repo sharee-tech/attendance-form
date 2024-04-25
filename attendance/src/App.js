@@ -35,7 +35,6 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
 
           <Route path="/register" element={<Register />} />
-          {/* <Route path="/signup" element={<Signup />} /> */}
         </Routes>
       </div>
       <Footer />

@@ -3,16 +3,18 @@ import React from "react";
 import { useAuth } from "../context/AuthProvider";
 import AccessTokenHook from "./AccessTokenHook";
 import AccessProfiles from "./Profiles";
+import MuiSelect from "./MuiSelect";
 
 export default function Admin(profiles, setProfiles) {
   const { user } = useAuth();
   return (
     <>
       {/* <div>You are logged in and your email address is {user.email}</div> */}
-      <AccessProfiles />
+      {/* <AccessProfiles /> */}
       <br></br>
-      <AccessTokenHook />
+      {/* <AccessTokenHook /> */}
       {/* <Absences /> */}
+      <MuiSelect />
     </>
   );
 }

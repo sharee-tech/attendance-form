@@ -1,6 +1,5 @@
 import moment from "moment";
 import { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { supabase } from "../config/supabaseClient";
 
@@ -44,7 +43,7 @@ export default function Absences() {
       .select()
       .order("date", { ascending: true });
     setAbsences(data);
-    console.log(absences);
+    // console.log(absences);
   }
   const groupedItems = groupItemsByYearAndMonth(absences);
 
@@ -52,7 +51,7 @@ export default function Absences() {
     return (
       <ul className="absences-list" style={{ listStyleType: "none" }}>
         {items.map((item) => (
-          <li key={item.name}>
+          <li key={item.id}>
             <RemoveCircleOutlineIcon
               onClick={() => {
                 if (window.confirm("Are you sure?")) {

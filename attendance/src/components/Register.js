@@ -10,20 +10,25 @@ export default function Register() {
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function register(email, password) {
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          emailRedirectTo: "http://localhost:3000/login",
-        },
-      });
-      return { data, error };
-    } catch (error) {
-      throw error;
-    }
-  }
+  // async function register(email, password) {
+  //   try {
+  //     const { data, error } = await supabase.auth.signUp({
+  //       email: email,
+  //       password: password,
+  //       // options: {
+  //       //   emailRedirectTo: "http://localhost:3000/login",
+  //       // },
+  //     });
+  //     if (error) throw error;
+  //     // return { data, error };
+  //   } catch (error) {
+  //     alert(error.message);
+  //     // throw error;
+  //   }
+  // }
+
+  const register = (email, password) =>
+    supabase.auth.signUp({ email, password });
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -55,16 +60,18 @@ export default function Register() {
         emailRef.current.value,
         passwordRef.current.value
       );
-      if (error) {
-        throw error;
+      // if (error) {
+      //   throw error;
+      // }
+      if (!error && data) {
+        setMsg(
+          // "Registration Successful. Check your email to confirm your account"
+          "Registration Successful!"
+        );
+        emailRef.current.value = "";
+        passwordRef.current.value = "";
+        confirmPasswordRef.current.value = "";
       }
-      setMsg(
-        // "Registration Successful. Check your email to confirm your account"
-        "Registration Successful!"
-      );
-      emailRef.current.value = "";
-      passwordRef.current.value = "";
-      confirmPasswordRef.current.value = "";
     } catch (error) {
       console.error("Error in Creating Account:", error);
       setErrorMsg("Error in Creating Account");

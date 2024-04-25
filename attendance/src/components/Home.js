@@ -5,10 +5,30 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { supabase } from "../config/supabaseClient";
 import SuccessAlert from "./Success";
+import { DevTool } from "@hookform/devtools";
+
+const options = [
+  {
+    id: 1,
+    full_name: "Alex Goering",
+    email: "Alex.Goering@reecenichols.com",
+  },
+  {
+    id: 2,
+    full_name: "Andy Berry",
+    email: "Andyberry59@gmail.com",
+  },
+  {
+    id: 3,
+    full_name: "Anita Tally",
+    email: "anitatally@gmail.com",
+  },
+];
 
 function Home() {
   const [selectedDate, setSelectedDate] = useState([]);
-  const [selectedName, setSelectedName] = useState("");
+  // const [selectedName, setSelectedName] = useState(null);
+  // const [value, setValue] = useState(options[0].id);
   const [members, setMembers] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [userDates, setUserDates] = useState([]);
@@ -22,9 +42,11 @@ function Home() {
     setMembers(data);
   }
 
-  async function setAbsences() {
+  async function setAbsences(data) {
     const insertData = selectedDate.map((date) => ({
-      name: selectedName,
+      user_id: null,
+      email: null,
+      name: data.name,
       date: date,
     }));
     try {
@@ -46,13 +68,15 @@ function Home() {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm();
 
   const onSubmit = async (data) => {
-    await setAbsences();
+    console.log(data);
+    await setAbsences(data);
     setOpen(true);
-    setSelectedDate([]);
-    setSelectedName("");
+    // setSelectedDate([]);
+    // setSelectedName("");
     reset(); //Reset the form to re-validate selectedName field
   };
 
@@ -72,48 +96,57 @@ function Home() {
     setUserDates(formattedDates);
   }
 
+  // const sortedOptions = [...members]
+  //   .sort((a, b) => a.first_name.localeCompare(b.first_name))
+  //   .map((member) => `${member.first_name} ${member.last_name}`);
+
   const sortedOptions = [...members]
     .sort((a, b) => a.first_name.localeCompare(b.first_name))
-    .map((member) => `${member.first_name} ${member.last_name}`);
+    .map((member) => ({
+      id: member.id,
+      full_name: `${member.first_name} ${member.last_name}`,
+      email: member.email,
+    }));
 
   return (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        autocomplete="off"
         // className="form-home"
         className="page-container"
       >
         <h1>Choir Attendance</h1>
+        <div>{watch("name")}</div>
         <div className="name-select">
           <Controller
+            name="name"
             control={control}
-            name="selectedName"
-            rules={{ required: true }}
-            autocomplete="off"
-            className="name-select"
-            render={({ field }) => (
-              <Autocomplete
-                onChange={(event, newValue) => {
-                  field.onChange(newValue);
-                  setSelectedName(newValue);
-                }}
-                value={selectedName}
-                disablePortal
-                id="combo-box-demo"
-                options={sortedOptions}
-                sx={{ width: 300, margin: "30px auto" }}
-                autocomplete="off"
-                className="name-select"
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Select Your Name"
-                    autocomplete="off"
-                  />
-                )}
-              />
-            )}
+            render={({ field }) => {
+              const { onChange, value } = field;
+              return (
+                <Autocomplete
+                  value={
+                    value
+                      ? options.find((option) => {
+                          return value === option.full_name;
+                        }) ?? null
+                      : null
+                  }
+                  isOptionEqualToValue={(option, value) =>
+                    option.id === value.id
+                  }
+                  options={options}
+                  sx={{ width: 300, margin: "30px auto" }}
+                  getOptionLabel={(option) => option.full_name}
+                  onChange={(event, newValue) => {
+                    onChange(newValue ? newValue.full_name : null);
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Select name" />
+                  )}
+                />
+              );
+            }}
           />
         </div>
         {errors.selectedName && (
@@ -171,6 +204,7 @@ function Home() {
           </button>
         </div>
       </form>
+      <DevTool control={control} />
     </>
   );
 }
