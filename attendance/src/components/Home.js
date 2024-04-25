@@ -45,8 +45,8 @@ function Home() {
   async function setAbsences(data) {
     const insertData = selectedDate.map((date) => ({
       user_id: null,
-      email: null,
-      name: data.name,
+      email: data.email,
+      name: data.name.full_name,
       date: date,
     }));
     try {
@@ -69,7 +69,20 @@ function Home() {
     formState: { errors },
     reset,
     watch,
+    setValue,
   } = useForm();
+
+  let userObj = watch("name");
+  console.log(userObj);
+
+  useEffect(() => {
+    if (userObj) {
+      let userEmail = userObj.email;
+      if (userEmail) {
+        setValue("email", userEmail, { shouldDirty: true });
+      }
+    }
+  }, [userObj, setValue]);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -116,30 +129,32 @@ function Home() {
         className="page-container"
       >
         <h1>Choir Attendance</h1>
-        <div>{watch("name")}</div>
+        {/* <div>{watch("name")}</div> */}
         <div className="name-select">
           <Controller
             name="name"
             control={control}
             render={({ field }) => {
-              const { onChange, value } = field;
+              const { onChange } = field;
               return (
                 <Autocomplete
-                  value={
-                    value
-                      ? options.find((option) => {
-                          return value === option.full_name;
-                        }) ?? null
-                      : null
-                  }
-                  isOptionEqualToValue={(option, value) =>
-                    option.id === value.id
-                  }
+                  // value={
+                  //   value
+                  //     ? options.find((option) => {
+                  //         return value === option.full_name;
+                  //       }) ?? null
+                  //     : null
+                  // }
+                  // isOptionEqualToValue={(option, value) =>
+                  //   option.id === value.id
+                  // }
                   options={options}
                   sx={{ width: 300, margin: "30px auto" }}
-                  getOptionLabel={(option) => option.full_name}
-                  onChange={(event, newValue) => {
-                    onChange(newValue ? newValue.full_name : null);
+                  getOptionLabel={(item) =>
+                    item.full_name ? item.full_name : ""
+                  }
+                  onChange={(event, item) => {
+                    onChange(item);
                   }}
                   renderInput={(params) => (
                     <TextField {...params} label="Select name" />
@@ -152,6 +167,18 @@ function Home() {
         {errors.selectedName && (
           <span className="span-alert">Please select your name.</span>
         )}
+
+        <div /*style={{ display: "hidden" }}*/>
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => {
+              const { onChange, value } = field;
+              return <TextField id="email" label="Hidden Email" />;
+            }}
+          />
+        </div>
+
         <p>Indicate which day(s) you will be absent</p>
         <div className="select-dates">
           <SuccessAlert
