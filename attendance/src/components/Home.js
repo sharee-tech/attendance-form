@@ -6,6 +6,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { supabase } from "../config/supabaseClient";
 import SuccessAlert from "./Success";
 import { DevTool } from "@hookform/devtools";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 function Home() {
   const [selectedDate, setSelectedDate] = useState([]);
@@ -16,6 +18,14 @@ function Home() {
   useEffect(() => {
     getMembers();
   }, []);
+
+  const validationSchema = Yup.object().shape({
+    user: Yup.object().required("Name is required"),
+    email: Yup.string()
+      .required("Email is required")
+      .email("Email is invalid"),
+    date: Yup.mixed().required(),
+  });
 
   async function getMembers() {
     const { data } = await supabase.from("members").select();
@@ -50,7 +60,14 @@ function Home() {
     reset,
     watch,
     setValue,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      user: null,
+      email: null,
+      date: null,
+    },
+  });
 
   let userObj = watch("user");
 
@@ -102,7 +119,7 @@ function Home() {
             name="user"
             control={control}
             render={({ field }) => {
-              const { onChange } = field;
+              const { onChange, value } = field;
               return (
                 <Autocomplete
                   isOptionEqualToValue={(option, value) =>
@@ -116,17 +133,22 @@ function Home() {
                   onChange={(event, value) => {
                     onChange(value);
                   }}
+                  value={value}
                   renderInput={(params) => (
-                    <TextField {...params} label="Select name" />
+                    <TextField
+                      {...params}
+                      label="Select name"
+                      error={errors.user ? true : false}
+                    />
                   )}
                 />
               );
             }}
           />
         </div>
-        {/* {errors.full_name && (
+        {errors.user?.message && (
           <span className="span-alert">Please select your name.</span>
-        )} */}
+        )}
 
         <div style={{ display: "none" }}>
           <Controller
@@ -152,32 +174,35 @@ function Home() {
             control={control}
             name="date"
             rules={{ required: true }}
-            render={({ field }) => (
-              <Calendar
-                multiple
-                value={selectedDate}
-                onChange={(date) => {
-                  formatSavedDates(date);
-                  formatDatesUser(date);
-                  field.onChange(date);
-                }}
-                format="YYYY-MM-DD"
-                monthYearSeparator="|"
-                mapDays={({ date }) => {
-                  let notselectable = [1, 2, 4, 5, 6].includes(
-                    date.weekDay.index
-                  );
+            render={({ field }) => {
+              const { onChange, value } = field;
+              return (
+                <Calendar
+                  multiple
+                  value={value}
+                  onChange={(date) => {
+                    formatSavedDates(date);
+                    formatDatesUser(date);
+                    field.onChange(date);
+                  }}
+                  format="YYYY-MM-DD"
+                  monthYearSeparator="|"
+                  mapDays={({ date }) => {
+                    let notselectable = [1, 2, 4, 5, 6].includes(
+                      date.weekDay.index
+                    );
 
-                  if (notselectable)
-                    return {
-                      disabled: true,
-                      style: { color: "#ccc" },
-                      onClick: () =>
-                        alert("You must select a Sunday or a Wednesday"),
-                    };
-                }}
-              />
-            )}
+                    if (notselectable)
+                      return {
+                        disabled: true,
+                        style: { color: "#ccc" },
+                        onClick: () =>
+                          alert("You must select a Sunday or a Wednesday"),
+                      };
+                  }}
+                />
+              );
+            }}
           />
           {errors.date && (
             <span className="span-alert">
