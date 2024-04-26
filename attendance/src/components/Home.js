@@ -6,29 +6,11 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { supabase } from "../config/supabaseClient";
 import SuccessAlert from "./Success";
 import { DevTool } from "@hookform/devtools";
-
-const options = [
-  {
-    id: 1,
-    full_name: "Alex Goering",
-    email: "Alex.Goering@reecenichols.com",
-  },
-  {
-    id: 2,
-    full_name: "Andy Berry",
-    email: "Andyberry59@gmail.com",
-  },
-  {
-    id: 3,
-    full_name: "Anita Tally",
-    email: "anitatally@gmail.com",
-  },
-];
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 function Home() {
   const [selectedDate, setSelectedDate] = useState([]);
-  // const [selectedName, setSelectedName] = useState(null);
-  // const [value, setValue] = useState(options[0].id);
   const [members, setMembers] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [userDates, setUserDates] = useState([]);
@@ -36,6 +18,14 @@ function Home() {
   useEffect(() => {
     getMembers();
   }, []);
+
+  const validationSchema = Yup.object().shape({
+    user: Yup.object().required("Name is required"),
+    email: Yup.string()
+      .required("Email is required")
+      .email("Email is invalid"),
+    date: Yup.mixed().required(),
+  });
 
   async function getMembers() {
     const { data } = await supabase.from("members").select();
@@ -45,8 +35,8 @@ function Home() {
   async function setAbsences(data) {
     const insertData = selectedDate.map((date) => ({
       user_id: null,
-      email: null,
-      name: data.name,
+      email: data.email,
+      name: data.user.full_name,
       date: date,
     }));
     try {
@@ -69,14 +59,30 @@ function Home() {
     formState: { errors },
     reset,
     watch,
-  } = useForm();
+    setValue,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      user: null,
+      email: null,
+      date: null,
+    },
+  });
+
+  let userObj = watch("user");
+
+  useEffect(() => {
+    if (userObj) {
+      let userEmail = userObj.email;
+      if (userEmail) {
+        setValue("email", userEmail, { shouldDirty: true });
+      }
+    }
+  }, [userObj, setValue]);
 
   const onSubmit = async (data) => {
-    console.log(data);
     await setAbsences(data);
     setOpen(true);
-    // setSelectedDate([]);
-    // setSelectedName("");
     reset(); //Reset the form to re-validate selectedName field
   };
 
@@ -96,10 +102,6 @@ function Home() {
     setUserDates(formattedDates);
   }
 
-  // const sortedOptions = [...members]
-  //   .sort((a, b) => a.first_name.localeCompare(b.first_name))
-  //   .map((member) => `${member.first_name} ${member.last_name}`);
-
   const sortedOptions = [...members]
     .sort((a, b) => a.first_name.localeCompare(b.first_name))
     .map((member) => ({
@@ -110,48 +112,55 @@ function Home() {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        // className="form-home"
-        className="page-container"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="page-container">
         <h1>Choir Attendance</h1>
-        <div>{watch("name")}</div>
         <div className="name-select">
           <Controller
-            name="name"
+            name="user"
             control={control}
             render={({ field }) => {
               const { onChange, value } = field;
               return (
                 <Autocomplete
-                  value={
-                    value
-                      ? options.find((option) => {
-                          return value === option.full_name;
-                        }) ?? null
-                      : null
-                  }
                   isOptionEqualToValue={(option, value) =>
                     option.id === value.id
                   }
-                  options={options}
+                  options={sortedOptions}
                   sx={{ width: 300, margin: "30px auto" }}
-                  getOptionLabel={(option) => option.full_name}
-                  onChange={(event, newValue) => {
-                    onChange(newValue ? newValue.full_name : null);
+                  getOptionLabel={(option) =>
+                    option.full_name ? option.full_name : ""
+                  }
+                  onChange={(event, value) => {
+                    onChange(value);
                   }}
+                  value={value}
                   renderInput={(params) => (
-                    <TextField {...params} label="Select name" />
+                    <TextField
+                      {...params}
+                      label="Select name"
+                      error={errors.user ? true : false}
+                    />
                   )}
                 />
               );
             }}
           />
         </div>
-        {errors.selectedName && (
+        {errors.user?.message && (
           <span className="span-alert">Please select your name.</span>
         )}
+
+        <div style={{ display: "none" }}>
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => {
+              const { onChange, value } = field;
+              return <TextField id="email" label="Hidden Email" />;
+            }}
+          />
+        </div>
+
         <p>Indicate which day(s) you will be absent</p>
         <div className="select-dates">
           <SuccessAlert
@@ -165,32 +174,35 @@ function Home() {
             control={control}
             name="date"
             rules={{ required: true }}
-            render={({ field }) => (
-              <Calendar
-                multiple
-                value={selectedDate}
-                onChange={(date) => {
-                  formatSavedDates(date);
-                  formatDatesUser(date);
-                  field.onChange(date);
-                }}
-                format="YYYY-MM-DD"
-                monthYearSeparator="|"
-                mapDays={({ date }) => {
-                  let notselectable = [1, 2, 4, 5, 6].includes(
-                    date.weekDay.index
-                  );
+            render={({ field }) => {
+              const { onChange, value } = field;
+              return (
+                <Calendar
+                  multiple
+                  value={value}
+                  onChange={(date) => {
+                    formatSavedDates(date);
+                    formatDatesUser(date);
+                    field.onChange(date);
+                  }}
+                  format="YYYY-MM-DD"
+                  monthYearSeparator="|"
+                  mapDays={({ date }) => {
+                    let notselectable = [1, 2, 4, 5, 6].includes(
+                      date.weekDay.index
+                    );
 
-                  if (notselectable)
-                    return {
-                      disabled: true,
-                      style: { color: "#ccc" },
-                      onClick: () =>
-                        alert("You must select a Sunday or a Wednesday"),
-                    };
-                }}
-              />
-            )}
+                    if (notselectable)
+                      return {
+                        disabled: true,
+                        style: { color: "#ccc" },
+                        onClick: () =>
+                          alert("You must select a Sunday or a Wednesday"),
+                      };
+                  }}
+                />
+              );
+            }}
           />
           {errors.date && (
             <span className="span-alert">

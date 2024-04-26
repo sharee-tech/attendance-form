@@ -92,6 +92,7 @@ footer {
 
 .span-alert {
   color: #a6282e;
+
   padding: 10px 0;
 }
 
@@ -99,7 +100,7 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 25px;
-  margin: 25px 0;
+  margin: 0;
   align-items: center;
 }
 
