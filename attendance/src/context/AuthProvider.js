@@ -3,6 +3,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "../config/supabaseClient";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext({});
 
@@ -24,6 +25,7 @@ const updatePassword = (updatedPassword) =>
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
+  const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,14 +39,22 @@ const AuthProvider = ({ children }) => {
     };
     getUser();
     const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event == "PASSWORD_RECOVERY") {
+      if (event === "PASSWORD_RECOVERY") {
         setAuth(false);
       } else if (event === "SIGNED_IN") {
-        setUser(session.user);
+        if (session) {
+          setUser(session.user);
+          const jwt = jwtDecode(session.access_token);
+          const userRole = jwt.user_role;
+          setRole(userRole);
+          console.log(`Complete session info: ${JSON.stringify(session)}`);
+          console.log(`User role: ${userRole}`);
+        }
         setAuth(true);
       } else if (event === "SIGNED_OUT") {
         setAuth(false);
         setUser(null);
+        setRole(null);
       }
     });
     return () => {
@@ -56,6 +66,7 @@ const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        role,
         login,
         signOut,
         auth,

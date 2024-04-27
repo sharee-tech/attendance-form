@@ -8,12 +8,11 @@ import Absences from "./components/Absences";
 import Roster from "./components/Roster";
 import Register from "./components/Register";
 import AuthRoute from "./components/AuthRoute";
+import AdminRoute from "./components/AdminRoute";
 import NavMenu from "./components/NavMenu";
 import ResetPassword from "./components/ResetPassword";
 import UpdatePassword from "./components/UpdatePassword";
 import Copyright from "./components/Footer";
-import ProtectedRouteAdmin from "./components/ProtectedRouteAdmin";
-import ProtectedRouteUser from "./components/ProtectedRouteUser";
 import Footer from "./components/Footer";
 import Signup from "./components/Signup";
 
@@ -23,13 +22,18 @@ function App() {
       <NavMenu />
       <div className="page-container">
         <Routes>
+          <Route element={<AdminRoute />}>
+            <Route path="/roster" element={<Roster />} />
+          </Route>
+
           <Route element={<AuthRoute />}>
             <Route path="/admin" element={<Admin />} />
             <Route path="/members" element={<Members />} />
             <Route path="/absences" element={<Absences />} />
-            <Route path="/roster" element={<Roster />} />
+
             <Route path="/update-password" element={<UpdatePassword />} />
           </Route>
+
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
