@@ -1,7 +1,7 @@
 import moment from "moment";
 import { useState, useEffect } from "react";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { supabase } from "../config/supabaseClient";
+import { supabase } from "../lib/Store";
 import { useAuth } from "../context/AuthProvider";
 export default function Absences() {
   const [absences, setAbsences] = useState([]);

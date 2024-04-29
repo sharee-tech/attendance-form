@@ -3,21 +3,31 @@ import { Controller, useForm } from "react-hook-form";
 import { Calendar } from "react-multi-date-picker";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { supabase } from "../config/supabaseClient";
+import { supabase } from "../lib/Store";
 import SuccessAlert from "../common/SuccessAlert";
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useStore } from "../lib/Store";
 
 function Home() {
   const [selectedDate, setSelectedDate] = useState([]);
-  const [members, setMembers] = useState([]);
+  // const [members, setMembers] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [userDates, setUserDates] = useState([]);
+  const { members } = useStore();
 
-  useEffect(() => {
-    getMembers();
-  }, []);
+  const sortedOptions = [...members]
+    .sort((a, b) => a.first_name.localeCompare(b.first_name))
+    .map((member) => ({
+      id: member.id,
+      full_name: `${member.first_name} ${member.last_name}`,
+      email: member.email,
+    }));
+
+  // useEffect(() => {
+  //   getMembers();
+  // }, []);
 
   const validationSchema = Yup.object().shape({
     user: Yup.object().required("Name is required"),
@@ -27,10 +37,10 @@ function Home() {
     date: Yup.mixed().required(),
   });
 
-  async function getMembers() {
-    const { data } = await supabase.from("members").select();
-    setMembers(data);
-  }
+  // async function getMembers() {
+  //   const { data } = await supabase.from("members").select();
+  //   setMembers(data);
+  // }
 
   async function setAbsences(data) {
     const insertData = selectedDate.map((date) => ({
@@ -81,7 +91,7 @@ function Home() {
   }, [userObj, setValue]);
 
   const onSubmit = async (data) => {
-    await setAbsences(data);
+    await setAbsences(data, setSelectedDate);
     setOpen(true);
     reset(); //Reset the form to re-validate selectedName field
   };
@@ -101,14 +111,6 @@ function Home() {
     });
     setUserDates(formattedDates);
   }
-
-  const sortedOptions = [...members]
-    .sort((a, b) => a.first_name.localeCompare(b.first_name))
-    .map((member) => ({
-      id: member.id,
-      full_name: `${member.first_name} ${member.last_name}`,
-      email: member.email,
-    }));
 
   return (
     <>
@@ -146,6 +148,7 @@ function Home() {
             }}
           />
         </div>
+
         {errors.user?.message && (
           <span className="span-alert">Please select your name.</span>
         )}

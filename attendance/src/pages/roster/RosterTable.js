@@ -20,7 +20,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { visuallyHidden } from "@mui/utils";
 import { useState, useEffect } from "react";
 import SuccessAlert from "../../common/SuccessAlert";
-import { supabase } from "../../config/supabaseClient";
+import { supabase } from "../../lib/Store";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {

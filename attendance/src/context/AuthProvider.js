@@ -2,7 +2,7 @@
 // https://blog.openreplay.com/authentication-in-react-with-supabase/
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { supabase } from "../config/supabaseClient";
+import { supabase } from "../lib/Store";
 import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext({});
