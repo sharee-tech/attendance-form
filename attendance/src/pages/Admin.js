@@ -1,9 +1,5 @@
-import { NavLink } from "react-router-dom";
 import React from "react";
 import { useAuth } from "../context/AuthProvider";
-import AccessTokenHook from "./AccessTokenHook";
-import AccessProfiles from "./Profiles";
-import MuiSelect from "./MuiSelect";
 
 export default function Admin(profiles, setProfiles) {
   const { user } = useAuth();
@@ -14,7 +10,6 @@ export default function Admin(profiles, setProfiles) {
       <br></br>
       {/* <AccessTokenHook /> */}
       {/* <Absences /> */}
-      <MuiSelect />
     </>
   );
 }

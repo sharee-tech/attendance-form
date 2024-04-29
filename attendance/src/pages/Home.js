@@ -4,7 +4,7 @@ import { Calendar } from "react-multi-date-picker";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { supabase } from "../config/supabaseClient";
-import SuccessAlert from "./Success";
+import SuccessAlert from "../common/SuccessAlert";
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
