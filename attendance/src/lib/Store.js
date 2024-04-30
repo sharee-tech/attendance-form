@@ -29,3 +29,22 @@ export const getMembers = async (setState) => {
     console.log("error", error);
   }
 };
+
+export async function setAbsences(data) {
+  const insertData = data.selectedDates.map((date) => ({
+    user_id: null,
+    email: data.email,
+    name: data.user.full_name,
+    date: date,
+  }));
+  try {
+    const { data, error } = await supabase.from("absences").insert(insertData);
+    if (error) {
+      console.error("Error inserting absences:", error.message);
+    } else {
+      console.log("Absences inserted successfully:", data);
+    }
+  } catch (error) {
+    console.error("Error inserting absences:", error.message);
+  }
+}
