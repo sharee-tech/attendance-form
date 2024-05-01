@@ -11,8 +11,12 @@ import SuccessAlert from "../common/SuccessAlert";
 import { formatSelectedDates } from "../util/helpers";
 import { formatUserDates } from "../util/helpers";
 import { getSortedOptions } from "../util/helpers"; // Import the function
+import { useAuth } from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+  const { user, auth } = useAuth();
   const { members } = useStore();
   const [open, setOpen] = useState(false);
   const [userDates, setUserDates] = useState([]);
@@ -37,7 +41,7 @@ function Home() {
   const onSubmit = async (data) => {
     data.selectedDates = formatSelectedDates(data.date); // Format selected dates
     await setAbsences(data);
-    setOpen(true);
+    user && auth ? navigate("/absences") : setOpen(true);
     reset(); //Reset the form to re-validate selectedName field
   };
 

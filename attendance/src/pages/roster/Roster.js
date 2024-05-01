@@ -94,6 +94,7 @@ export default function Roster() {
               value={section}
               disablePortal
               id=""
+              isOptionEqualToValue={(option, value) => option.id === value.id}
               options={[
                 "Soprano",
                 "Alto",

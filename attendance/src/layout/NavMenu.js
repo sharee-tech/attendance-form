@@ -2,6 +2,11 @@ import { useAuth } from "../context/AuthProvider";
 import { NavLink } from "react-router-dom";
 import React from "react";
 import { useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+
+import AccountIcon from "@mui/icons-material/AccountBox";
 
 const NavMenu = () => {
   const { auth, signOut } = useAuth();
@@ -47,13 +52,13 @@ const NavMenu = () => {
             className={`icon-open ${showMenu ? "hide-mobile" : ""}`}
             onClick={toggleMenu}
           >
-            <i className="fa fa-bars"></i>
+            <MenuIcon />
           </div>
           <span
             className={`icon-close ${showMenu ? "" : "hide-mobile"}`}
             onClick={toggleMenu}
           >
-            Ｘ
+            <CloseIcon />
           </span>
           <div className={`nav-list ${showMenu ? "" : "show-menu"}`}>
             {auth && (
@@ -107,7 +112,9 @@ const NavMenu = () => {
                 <span
                   className={`dropbtn ${showOnMobile ? "" : "hide-mobile"}`}
                 >
-                  ⚙️
+                  <IconButton>
+                    <AccountIcon />
+                  </IconButton>
                 </span>
                 <div className="dropdown-content">
                   <a href="/admin">Account</a>
@@ -136,7 +143,9 @@ const NavMenu = () => {
                   showOnMobile ? "" : "hide-mobile"
                 }`}
               >
-                <span className="dropbtn">⚙️</span>
+                <span className="dropbtn">
+                  <AccountIcon />
+                </span>
                 <div className="dropdown-content">
                   {/* <a href="/signup">Register</a> */}
                   <a href="/login">Login</a>

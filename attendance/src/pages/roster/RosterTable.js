@@ -138,7 +138,6 @@ function EnhancedTableToolbar(props) {
 
   return (
     <Toolbar
-      deleteMember={deleteMember}
       sx={{
         pl: { sm: 2 },
         pr: { xs: 1, sm: 1 },
