@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "../config/supabaseClient";
+import { supabase } from "../lib/Store";
 
 export default function Signup() {
   const emailRef = useRef(null);

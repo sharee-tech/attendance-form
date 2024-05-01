@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import SuccessAlert from "./Success";
+import SuccessAlert from "../../common/SuccessAlert";
 import RosterTable from "./RosterTable";
 import { Controller, useForm } from "react-hook-form";
 import { Autocomplete, TextField } from "@mui/material";
-import { supabase } from "../config/supabaseClient";
+import { supabase } from "../../lib/Store";
 
 export default function Roster() {
   const [members, setMembers] = useState([]);

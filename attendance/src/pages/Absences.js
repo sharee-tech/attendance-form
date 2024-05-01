@@ -1,10 +1,35 @@
 import moment from "moment";
 import { useState, useEffect } from "react";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { supabase } from "../config/supabaseClient";
-
+import { supabase } from "../lib/Store";
+import { useAuth } from "../context/AuthProvider";
 export default function Absences() {
   const [absences, setAbsences] = useState([]);
+  const { role } = useAuth();
+  const ADMIN = role === "admin" ? true : null;
+
+  const renderItems = (items) => {
+    return (
+      <ul className="absences-list" style={{ listStyleType: "none" }}>
+        {items.map((item) => (
+          <li key={item.id}>
+            {ADMIN && (
+              <RemoveCircleOutlineIcon
+                key={item.id}
+                onClick={() => {
+                  if (window.confirm("Are you sure?")) {
+                    deleteAbsence(item.id);
+                  }
+                }}
+                style={{ cursor: "pointer" }}
+              />
+            )}
+            {Number(moment(item.date).format("DD"))} - {item.name}
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   async function deleteAllAbsences() {
     const { error } = await supabase
@@ -47,47 +72,29 @@ export default function Absences() {
   }
   const groupedItems = groupItemsByYearAndMonth(absences);
 
-  const renderItems = (items) => {
-    return (
-      <ul className="absences-list" style={{ listStyleType: "none" }}>
-        {items.map((item) => (
-          <li key={item.id}>
-            <RemoveCircleOutlineIcon
-              onClick={() => {
-                if (window.confirm("Are you sure?")) {
-                  deleteAbsence(item.id);
-                }
-              }}
-              style={{ cursor: "pointer" }}
-            />
-            {Number(moment(item.date).format("DD"))} - {item.name}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-
   return (
     <>
       <h1>Absences</h1>
       <div className="absences">
-        {Object.entries(groupedItems).map(([yearMonth, items]) => (
-          <>
+        {Object.entries(groupedItems).map(([yearMonth, items], i) => (
+          <div key={i}>
             <h3>{yearMonth}</h3>
             {renderItems(items)}
-          </>
+          </div>
         ))}
       </div>
-      <button
-        className="cstm-button clear-all"
-        onClick={() => {
-          if (window.confirm("Are you sure?")) {
-            deleteAllAbsences();
-          }
-        }}
-      >
-        Clear All Absences (end of year)
-      </button>
+      {ADMIN && (
+        <button
+          className="cstm-button clear-all"
+          onClick={() => {
+            if (window.confirm("Are you sure?")) {
+              deleteAllAbsences();
+            }
+          }}
+        >
+          Clear All Absences (end of year)
+        </button>
+      )}
     </>
   );
 }
