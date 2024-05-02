@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthProvider";
 
 export default function Absences() {
   const [absences, setAbsences] = useState([]);
-  const { role } = useAuth();
+  const { role, user } = useAuth();
   const ADMIN = role === "admin" ? true : null;
 
   const renderItems = (items) => {
@@ -54,8 +54,8 @@ export default function Absences() {
   }
 
   useEffect(() => {
-    getAbsences();
-  }, []);
+    ADMIN ? getAbsences() : getAbsencesById(user.id);
+  }, [ADMIN, user.id]);
 
   async function getAbsences() {
     const { data } = await supabase
@@ -65,6 +65,16 @@ export default function Absences() {
     setAbsences(data);
     // console.log(absences);
   }
+
+  async function getAbsencesById(userId) {
+    const { data } = await supabase
+      .from("absences")
+      .select("*")
+      .eq("user_id", userId)
+      .order("date", { ascending: true });
+    setAbsences(data);
+  }
+
   const groupedItems = groupItemsByYearAndMonth(absences);
 
   return (

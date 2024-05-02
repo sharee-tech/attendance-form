@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const navigate = useNavigate();
   const { user, auth } = useAuth();
+  // console.log(user.id);
+
   const { members } = useStore();
   const [open, setOpen] = useState(false);
   const [userDates, setUserDates] = useState([]);

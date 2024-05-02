@@ -47,8 +47,8 @@ const AuthProvider = ({ children }) => {
           const jwt = jwtDecode(session.access_token);
           const userRole = jwt.user_role;
           setRole(userRole);
-          console.log(`Complete session info: ${JSON.stringify(session)}`);
-          console.log(`User role: ${userRole}`);
+          // console.log(`Complete session info: ${JSON.stringify(session)}`);
+          // console.log(`User role: ${userRole}`);
         }
         setAuth(true);
       } else if (event === "SIGNED_OUT") {
