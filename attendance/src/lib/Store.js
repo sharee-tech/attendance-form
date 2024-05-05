@@ -8,7 +8,6 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const useStore = (props) => {
   const [members, setMembers] = useState([]);
-
   useEffect(() => {
     const handleAsync = async () => {
       getMembers(setMembers);
@@ -30,11 +29,13 @@ export const getMembers = async (setState) => {
   }
 };
 
-export async function setAbsences(data) {
+export async function setAbsences(data, user, full_name, nonadminloggedinuser) {
+  // console.log(data);
+
   const insertData = data.selectedDates.map((date) => ({
-    user_id: null,
-    email: data.email,
-    name: data.user.full_name,
+    user_id: nonadminloggedinuser ? user.id : null,
+    email: nonadminloggedinuser ? user.email : data.email,
+    name: nonadminloggedinuser ? full_name : data.user.full_name,
     date: date,
   }));
   try {

@@ -5,6 +5,7 @@ import DatePickerField from "./home/DatePickerField";
 import { useStore } from "../lib/Store";
 import { setAbsences } from "../lib/Store";
 import { validationSchema } from "../util/validationSchema";
+import { validationSchemaAdmin } from "../util/validationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DevTool } from "@hookform/devtools";
 import SuccessAlert from "../common/SuccessAlert";
@@ -16,8 +17,17 @@ import { useNavigate } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
-  const { user, auth } = useAuth();
-  // console.log(user.id);
+  const { user, auth, role } = useAuth();
+  const ADMIN = role === "admin" ? true : false;
+  const nonadminloggedinuser = !ADMIN && auth;
+
+  function whichSchema() {
+    if ((!ADMIN && !auth) || ADMIN) {
+      return validationSchemaAdmin;
+    } else {
+      return validationSchema;
+    }
+  }
 
   const { members } = useStore();
   const [open, setOpen] = useState(false);
@@ -28,9 +38,13 @@ function Home() {
     formState: { errors },
     reset,
     watch,
+    register,
     setValue,
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(whichSchema()),
+    context: {
+      role, // Pass my variable to yup schema
+    },
     defaultValues: {
       user: null,
       email: null,
@@ -41,8 +55,16 @@ function Home() {
   const sortedOptions = getSortedOptions(members); // Use the function to get sorted options
 
   const onSubmit = async (data) => {
+    // console.log(data);
     data.selectedDates = formatSelectedDates(data.date); // Format selected dates
-    await setAbsences(data);
+    let user_fullname = "";
+    if (nonadminloggedinuser) {
+      const loggedinuser = members.filter(
+        (member) => member.email === user.email
+      );
+      user_fullname = `${loggedinuser[0].first_name} ${loggedinuser[0].last_name}`;
+    }
+    await setAbsences(data, user, user_fullname, nonadminloggedinuser);
     user && auth ? navigate("/absences") : setOpen(true);
     reset(); //Reset the form to re-validate selectedName field
   };
@@ -72,11 +94,24 @@ function Home() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="page-container">
       <h1>Choir Attendance</h1>
-      <AutocompleteField
-        control={control}
-        errors={errors}
-        options={sortedOptions}
-      />
+      {ADMIN || !auth ? (
+        <AutocompleteField
+          control={control}
+          errors={errors}
+          options={sortedOptions}
+        />
+      ) : (
+        <input
+          {...register("hidden", {
+            value: {
+              user_id: "",
+              full_name: "",
+              email: "",
+            },
+          })}
+          type="hidden"
+        />
+      )}
       <SuccessAlert
         open={open}
         setOpen={setOpen}
