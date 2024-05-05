@@ -19,15 +19,11 @@ function Home() {
   const navigate = useNavigate();
   const { user, auth, role } = useAuth();
   const ADMIN = role === "admin" ? true : false;
-  const nonadminloggedinuser = !ADMIN && auth;
+  const AUTHREGUSR = !ADMIN && auth;
+  const NONAUTHUSR = !auth;
 
-  function whichSchema() {
-    if ((!ADMIN && !auth) || ADMIN) {
-      return validationSchemaAdmin;
-    } else {
-      return validationSchema;
-    }
-  }
+  const getValidationSchema = () =>
+    NONAUTHUSR || ADMIN ? validationSchemaAdmin : validationSchema;
 
   const { members } = useStore();
   const [open, setOpen] = useState(false);
@@ -41,10 +37,7 @@ function Home() {
     register,
     setValue,
   } = useForm({
-    resolver: yupResolver(whichSchema()),
-    context: {
-      role, // Pass my variable to yup schema
-    },
+    resolver: yupResolver(getValidationSchema()),
     defaultValues: {
       user: null,
       email: null,
@@ -57,14 +50,17 @@ function Home() {
   const onSubmit = async (data) => {
     // console.log(data);
     data.selectedDates = formatSelectedDates(data.date); // Format selected dates
-    let user_fullname = "";
-    if (nonadminloggedinuser) {
-      const loggedinuser = members.filter(
-        (member) => member.email === user.email
+    let regusr_fullname = ""; //here in case needed for regusr
+    if (AUTHREGUSR) {
+      /*need to find full name and provide to setAbsences 
+      since regular non-admin users won't have a 
+      dropdown select to choose their name*/
+      const regusr = members.filter(
+        (member) => member.email === user.email //user.email comes from logged in usr session object
       );
-      user_fullname = `${loggedinuser[0].first_name} ${loggedinuser[0].last_name}`;
+      regusr_fullname = `${regusr[0].first_name} ${regusr[0].last_name}`;
     }
-    await setAbsences(data, user, user_fullname, nonadminloggedinuser);
+    await setAbsences(data, user, regusr_fullname, AUTHREGUSR);
     user && auth ? navigate("/absences") : setOpen(true);
     reset(); //Reset the form to re-validate selectedName field
   };
