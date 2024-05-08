@@ -204,7 +204,7 @@ export default function RosterTable({
 
   useEffect(() => {
     getMembers();
-  }, []);
+  });
 
   async function getMembers() {
     const { data } = await supabase
@@ -272,9 +272,9 @@ export default function RosterTable({
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
+  // const handleChangeDense = (event) => {
+  //   setDense(event.target.checked);
+  // };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
 

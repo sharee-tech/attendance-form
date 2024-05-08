@@ -17,9 +17,9 @@ const NavMenu = () => {
     setShowMenu(!showMenu);
   };
 
-  const changeView = () => {
-    setShowOnMobile(!showOnMobile);
-  };
+  // const changeView = () => {
+  //   setShowOnMobile(!showOnMobile);
+  // };
 
   const closeMenuOnMobile = () => {
     if (window.innerWidth <= 768) {
